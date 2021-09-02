@@ -11,7 +11,7 @@
     "test": "spago test",
     "build": "spago build",
     "watch": "spago build --watch",
-    "bundle": "spago bundle-app --main Main --to 'public/index.js'"
+    "bundle": "spago bundle-app --main Main --to 'index.js'"
   },
   "repository": {
     "type": "git",
