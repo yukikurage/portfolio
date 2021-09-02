@@ -6,8 +6,8 @@ import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
 import YukiPortfolio.Types.Contents.Music (Music(..))
 
-mkPanel :: forall w i. Music -> HH.HTML w i
-mkPanel (Music music) =
+panel :: forall w i. Music -> HH.HTML w i
+panel (Music music) =
   HH.div
     [ HP.class_ $ H.ClassName "flex"
     ]
