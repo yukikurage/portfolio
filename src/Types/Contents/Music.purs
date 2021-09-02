@@ -2,7 +2,8 @@ module YukiPortfolio.Types.Contents.Music where
 
 newtype Music
   = Music
-  { author :: String
+  { title :: String
+  , author :: String
   , hyperlink :: String
   , description :: String
   , thumbnail :: String
