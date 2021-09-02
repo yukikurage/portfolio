@@ -15,6 +15,7 @@ to generate this file without the comments in this block.
   [ "console"
   , "css"
   , "effect"
+  , "either"
   , "halogen"
   , "halogen-css"
   , "halogen-hooks"
