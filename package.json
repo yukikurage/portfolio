@@ -1,0 +1,22 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "yukikurage's portfolio",
+  "main": "public/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "spago test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yukikurage/portfolio.git"
+  },
+  "author": "yukikurage",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yukikurage/portfolio/issues"
+  },
+  "homepage": "https://github.com/yukikurage/portfolio#readme"
+}
