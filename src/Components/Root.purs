@@ -4,7 +4,7 @@ import Prelude
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
-import YukiPortfolio.RootCSS (style)
+import YukiPortfolio.Style (style)
 
 data Action
 
