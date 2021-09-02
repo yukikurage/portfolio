@@ -1,4 +1,4 @@
-module YukiPortfolio.Classes.Contents.MusicHandler where
+module YukiPortfolio.Classe.MusicHandler where
 
 import Prelude
 import Data.Either (Either)
