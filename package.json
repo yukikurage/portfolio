@@ -7,7 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "spago test"
+    "clean": "rm -r output .lock .cache",
+    "test": "spago test",
+    "build": "spago build",
+    "watch": "spago build --watch",
+    "bundle": "spago bundle-app --main Main --to 'public/index.js'"
   },
   "repository": {
     "type": "git",
