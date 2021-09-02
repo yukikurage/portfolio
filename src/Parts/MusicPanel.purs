@@ -1,4 +1,4 @@
-module YukiPortfolio.Parts.Panels.Music where
+module YukiPortfolio.Parts.MusicPanel where
 
 import Prelude
 import Halogen.HTML as HH
