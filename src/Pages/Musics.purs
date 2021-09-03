@@ -1,4 +1,4 @@
-module YukiPortfolio.Pages.Music where
+module YukiPortfolio.Pages.Musics where
 
 import Prelude
 import Data.Array (singleton)
