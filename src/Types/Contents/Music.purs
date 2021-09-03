@@ -1,5 +1,7 @@
 module YukiPortfolio.Types.Contents.Music where
 
+import Data.Maybe (Maybe)
+
 newtype Music
   = Music
   { title :: String
@@ -7,4 +9,5 @@ newtype Music
   , hyperlink :: String
   , description :: String
   , thumbnail :: String
+  , soundTrackId :: Maybe Int
   }

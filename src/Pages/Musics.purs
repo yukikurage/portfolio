@@ -30,6 +30,13 @@ component =
       pure Nothing
     Hooks.pure
       $ HH.div
-          [ HP.class_ $ H.ClassName "vertical"
+          [ HP.class_ $ H.ClassName "musicPanels"
           ]
-      $ either (ErrorMessage.part >>> singleton) (map MusicPanel.part) musics
+      $ either (ErrorMessage.part >>> singleton) (map MusicPanel.part >>> (_ <> dummies)) musics
+  where
+    dummies =
+      [ HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+      ]
