@@ -14,6 +14,7 @@ to generate this file without the comments in this block.
 , dependencies =
   [ "aff"
   , "arrays"
+  , "colors"
   , "console"
   , "css"
   , "effect"
@@ -23,6 +24,7 @@ to generate this file without the comments in this block.
   , "halogen-css"
   , "halogen-hooks"
   , "maybe"
+  , "nonempty"
   , "prelude"
   , "psci-support"
   , "safe-coerce"
