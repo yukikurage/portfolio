@@ -16,6 +16,9 @@ import YukiPortfolio.Parts.ErrorMessage as ErrorMessage
 import YukiPortfolio.Parts.MusicPanel as MusicPanel
 import YukiPortfolio.Types.Contents.Music (Music)
 
+type Slot id
+  = forall q. H.Slot q Void id
+
 _proxy = Proxy :: Proxy "musics"
 
 component :: forall q i o m. MusicHandler m => H.Component q i o m
