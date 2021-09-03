@@ -1,20 +1,17 @@
-module YukiPortfolio.Components.Root where
+module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
+import Halogen.HTML.Properties as HP
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
-import YukiPortfolio.Pages.Musics as Musics
 import YukiPortfolio.Style (style)
 
 data Action
 
 type State
   = Unit
-
-type Slots
-  = ( musics :: Musics.Slot Unit )
 
 component :: forall query input output m. MusicHandler m => H.Component query input output m
 component =
@@ -27,8 +24,8 @@ component =
 initialState :: forall input. input -> State
 initialState _ = unit
 
-render :: forall m. MusicHandler m => State -> H.ComponentHTML Action Slots m
-render state = HH.div [ HC.style style ] [ HH.slot_ Musics._proxy unit Musics.component unit ]
+render :: forall m. MusicHandler m => State -> H.ComponentHTML Action () m
+render _ = HC.stylesheet style
 
-handleAction :: forall output m. Action -> H.HalogenM State Action Slots output m Unit
-handleAction action = pure unit
+handleAction :: forall output m. Action -> H.HalogenM State Action () output m Unit
+handleAction _ = pure unit
