@@ -11,3 +11,4 @@
 
 /.vscode
 /index.js
+/purescript-dependency-graph
