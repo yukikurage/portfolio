@@ -2,7 +2,6 @@ module YukiPortfolio.Data.Musics where
 
 import Prelude
 
-import Data.Array (replicate)
 import Data.Maybe (Maybe(..))
 import YukiPortfolio.Types.Contents.Music (Music(..))
 

@@ -2,8 +2,9 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (CSS, absolute, backgroundColor, black, border, borderTop, bottom, byClass, column, cursor, display, fixed, flex, flexBasis, flexFlow, flexGrow, flexShrink, flexWrap, footer, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, nowrap, paddingLeft, paddingRight, paddingTop, pct, position, px, query, solid, spaceBetween, star, vh, whitesmoke, width, wrap, (&), (?))
+import CSS (CSS, a, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, paddingLeft, paddingRight, paddingTop, pct, position, px, query, rgb, solid, spaceBetween, star, width, wrap, (&), (?))
 import CSS.Common (auto)
+import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
@@ -53,9 +54,31 @@ style = do
     width $ pct 100.0
     height $ px 120.0
     border solid (px 0.0) black
-    borderTop solid (px 1.0) grey
   star & byClass "bodyRoot" ? do
     marginBottom $ px 120.0
+  star & byClass "navigationBar" ? do
+    display flex
+    marginLeft auto
+    marginRight auto
+    marginTop $ px 10.0
+    marginBottom $ px 10.0
+    fontFaceFamily "sans-serif"
+    fontWeight bold
+    justifyContent Common.center
+    a ? do
+      marginLeft $ px 20.0
+      marginRight $ px 20.0
+      fontSize $ pct 150.0
+    fromString "a:link" ? do
+      color black
+    fromString "a:visited" ? do
+      color black
+    fromString "a:hover" ? do
+      color $ rgb 168 35 62
+    fromString "a:active" ? do
+      color $ rgb 168 35 62
+    a & byClass "nowPage" ? do
+      color $ rgb 168 35 62
   main ? do
     flexGrow $ 1.0
     flexShrink $ 1.0

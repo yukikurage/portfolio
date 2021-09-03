@@ -1,11 +1,24 @@
 module YukiPortfolio.Pages where
 
+import Prelude
+
 data Pages =
   About |
   Musics |
   Pictures |
   WebApps |
   NotFound
+
+derive instance Eq Pages
+
+showPage :: Pages -> String
+showPage = case _ of
+  About -> "About"
+  Musics -> "Musics"
+  Pictures -> "Pictures"
+  WebApps -> "WebApps"
+  NotFound -> "NotFound"
+
 
 pageToHash :: Pages -> String
 pageToHash = case _ of
