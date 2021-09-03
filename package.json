@@ -1,17 +1,17 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "yukikurage's portfolio",
-  "main": "public/index.js",
+  "description": "",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "clean": "rm -r output .lock .cache",
-    "test": "spago test",
-    "build": "spago build",
-    "watch": "spago build --watch",
-    "bundle": "spago bundle-app --main Main --to 'index.js'"
+    "test": "npx spago test",
+    "build": "npx spago build",
+    "watch": "npx spago build --watch",
+    "bundle": "npx spago bundle-app --main Main --to 'index.js'"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/yukikurage/portfolio/issues"
   },
-  "homepage": "https://github.com/yukikurage/portfolio#readme"
+  "homepage": "https://github.com/yukikurage/portfolio#readme",
+  "devDependencies": {
+    "purescript": "^0.14.4",
+    "spago": "^0.20.3"
+  }
 }
