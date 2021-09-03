@@ -7,6 +7,7 @@ import Data.Array (replicate, singleton)
 import Data.Either (Either(..), either)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
+import Effect.Class (class MonadEffect)
 import Halogen (lift)
 import Halogen as H
 import Halogen.HTML as HH
@@ -16,6 +17,7 @@ import YukiPortfolio.Classes.MusicHandler (class MusicHandler, getMusics)
 import YukiPortfolio.Parts.ErrorMessage as ErrorMessage
 import YukiPortfolio.Parts.MusicPanel as MusicPanel
 import YukiPortfolio.Types.Contents.Music (Music)
+import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState)
 
 type UseMusicsPage =
   Hooks.UseState (Either String (Array Music))
@@ -24,10 +26,12 @@ type UseMusicsPage =
   Hooks.<>
   Hooks.Pure
 
-useMusicsPage :: forall m t53 t54. Monad m =>
+useMusicsPage :: forall w m. Monad m =>
   MusicHandler m =>
-  Hooks.Hook m UseMusicsPage (HH.HTML t53 t54)
-useMusicsPage = Hooks.do
+  MonadEffect m =>
+  Hooks.StateId MusicPlayerState ->
+  Hooks.Hook m UseMusicsPage (HH.HTML w (Hooks.HookM m Unit))
+useMusicsPage nowPlayingId = Hooks.do
     musics /\ musicsId <- Hooks.useState $ (Left "曲情報を取得しています" :: Either String (Array Music))
     Hooks.useLifecycleEffect do
       Hooks.put musicsId =<< lift getMusics
@@ -36,6 +40,6 @@ useMusicsPage = Hooks.do
       $ HH.div
           [ HP.class_ $ H.ClassName "musicPanels"
           ]
-      $ either (ErrorMessage.errorMessage >>> singleton) (map MusicPanel.musicPanel >>> (_ <> dummies)) musics
+      $ either (ErrorMessage.errorMessage >>> singleton) (map (\music -> MusicPanel.musicPanel music nowPlayingId) >>> (_ <> dummies)) musics
   where
-    dummies = replicate 4 $ HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+    dummies = replicate 4 $ HH.div [ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
