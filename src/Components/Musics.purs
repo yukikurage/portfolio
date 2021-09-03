@@ -1,7 +1,8 @@
 module YukiPortfolio.Pages.Musics where
 
 import Prelude
-import Data.Array (singleton)
+
+import Data.Array (replicate, singleton)
 import Data.Either (Either(..), either)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
@@ -34,9 +35,4 @@ component =
           ]
       $ either (ErrorMessage.part >>> singleton) (map MusicPanel.part >>> (_ <> dummies)) musics
   where
-    dummies =
-      [ HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
-      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
-      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
-      , HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
-      ]
+    dummies = replicate 4 $HH.div[ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
