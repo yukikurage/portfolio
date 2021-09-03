@@ -27,9 +27,12 @@ to generate this file without the comments in this block.
   , "nonempty"
   , "prelude"
   , "psci-support"
+  , "routing"
   , "safe-coerce"
   , "tuples"
   , "web-dom"
+  , "web-events"
+  , "web-html"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
