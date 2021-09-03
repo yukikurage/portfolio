@@ -7,8 +7,8 @@ musics :: Array Music
 musics =
   map Music
     [ { title: "Junkbox"
-      , author: "ゆきくらげ"
-      , description: "てすと"
+      , composer: "ゆきくらげ"
+      , description: "テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト"
       , hyperlink: "https://soundcloud.com/yukikurage/yukikurage-junkbox"
       , thumbnail: "/public/images/Junkbox.png"
       }
