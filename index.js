@@ -12533,14 +12533,14 @@ var PS = {};
       composer: "\u3086\u304d\u304f\u3089\u3052",
       description: "\u7121\u8a08\u753b\u306b\u66f2\u3092\u4f5c\u308b\u3068\u3053\u3046\u306a\u308b",
       hyperlink: "https://soundcloud.com/yukikurage/yukikurage-junkbox",
-      thumbnail: "/public/images/thumbnail/Junkbox.png",
+      thumbnail: "./public/images/thumbnail/Junkbox.png",
       soundTrackId: new Data_Maybe.Just(1067406727)
   }, {
       title: "Ficuser Science Laboratory",
       composer: "\u3086\u304d\u304f\u3089\u3052",
       description: "\u67b6\u7a7a\u306e\u5b9f\u9a13\u65bd\u8a2d\u304c\u30c6\u30fc\u30de",
       hyperlink: "https://soundcloud.com/yukikurage/ficuser-science-laboratory",
-      thumbnail: "/public/images/thumbnail/FSL.png",
+      thumbnail: "./public/images/thumbnail/FSL.png",
       soundTrackId: new Data_Maybe.Just(1111168981)
   } ]);
   exports["musics"] = musics;
