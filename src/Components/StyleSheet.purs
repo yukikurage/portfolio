@@ -2,7 +2,7 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (AnimationName(..), CSS, Color, GenericFontFamily(..), a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, cursor, display, ease, fixed, flex, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
+import CSS (AnimationName(..), CSS, Color, GenericFontFamily(..), a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, column, cursor, display, ease, fixed, flex, flexFlow, flexGrow, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, nowrap, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, vh, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
@@ -133,11 +133,6 @@ style = do
     height $ px 120.0
     border solid (px 0.0) yukiBlack
     zIndex 90
-  star & byClass "bodyRoot" ? do
-    paddingTop $ px 160.0
-    paddingBottom $ px 120.0
-    fontFamily ["Meiryo","メイリオ","Verdana"] $ NonEmpty.singleton sansSerif
-    color $ yukiBlack
   star & byClass "navigationBar" ? do
     backgroundColor $ yukiGreyYellow 0.8
     display flex
@@ -184,7 +179,8 @@ style = do
   star & byClass "titleBar" ? do
     marginBottom $ px 0.0
     width $ pct 100.0
-    height $ px 100.0
+    height $ px 60.0
+    paddingLeft $ px 20.0
     backgroundPosition $ placed sideCenter sideCenter
     backgroundImage $ url "./public/images/nou2_nologo.png"
     prefixed (fromString "background-size") "calc(max(100%, 1000px))"
@@ -210,19 +206,46 @@ style = do
         maxHeight $ pct 70.0
         width auto
       star & byClass "yukikurage" ? do
-        maxHeight $ pct 60.0
+        maxHeight $ pct 100.0
         width auto
         -- font-family: 'Montserrat', sans-serif;
         fontFamily ["Big Shoulders Display"] $ NonEmpty.singleton sansSerif
         color white
         fontSize $ pct 250.0
         textWhitespace whitespaceNoWrap
+
+  star & byClass "bodyRoot" ? do
+    fontFamily ["Meiryo","メイリオ","Verdana"] $ NonEmpty.singleton sansSerif
+    color $ yukiBlack
+
   star & byClass "header" ? do
     zIndex 100
     position fixed
     left $ px 0.0
     top $ px 0.0
     width $ pct 100.0
+
+  star & byClass "dynamic" ? do
+    position absolute
+    top $ px 0.0
+    left $ px 0.0
+    right $ px 0.0
+    bottom $ px 0.0
+    display flex
+    flexFlow column nowrap
+    minHeight $ vh 100.0
+
+  star & byClass "main" ? do
+    paddingTop $ px 160.0
+    flexGrow 1.0
+    marginBottom $ px 100.0
+
+  star & byClass "footer" ? do
+    zIndex 80
+    backgroundColor $ yukiGreyYellow 1.0
+    color yukiBlack
+    paddingBottom $ px 120.0
+    paddingLeft $ px 20.0
 
 component :: forall query input output m. H.Component query input output m
 component = Hooks.component \_ _ -> Hooks.do

@@ -3041,6 +3041,9 @@ var PS = {};
   var Size = function (x) {
       return x;
   };
+  var vh = function (i) {
+      return Data_Semigroup.append(CSS_Property.semigroupValue)(CSS_Property.value(CSS_Property.valNumber)(i))(CSS_String.fromString(CSS_Property.isStringValue)("vh"));
+  };
   var valSize = {
       value: function (v) {
           return v;
@@ -3065,6 +3068,7 @@ var PS = {};
   };
   exports["px"] = px;
   exports["pct"] = pct;
+  exports["vh"] = vh;
   exports["valSize"] = valSize;
   exports["autoSize"] = autoSize;
 })(PS);
@@ -4532,11 +4536,16 @@ var PS = {};
   var exports = $PS["CSS.Flexbox"];
   var CSS_Property = $PS["CSS.Property"];
   var CSS_String = $PS["CSS.String"];
-  var CSS_Stylesheet = $PS["CSS.Stylesheet"];        
+  var CSS_Stylesheet = $PS["CSS.Stylesheet"];
+  var Data_Show = $PS["Data.Show"];
+  var Data_Tuple = $PS["Data.Tuple"];                
   var JustifyContentValue = function (x) {
       return x;
   };
   var FlexWrap = function (x) {
+      return x;
+  };
+  var FlexDirection = function (x) {
       return x;
   };
   var AlignItemsValue = function (x) {
@@ -4553,6 +4562,11 @@ var PS = {};
           return v;
       }
   };
+  var valFlexDirection = {
+      value: function (v) {
+          return v;
+      }
+  };
   var valAlignItemsValue = {
       value: function (v) {
           return v;
@@ -4563,7 +4577,8 @@ var PS = {};
   };
   var spaceAround = function (dict) {
       return dict.spaceAround;
-  };                                                                                 
+  };
+  var nowrap = FlexWrap(CSS_String.fromString(CSS_Property.isStringValue)("nowrap"));
   var justifyContent = CSS_Stylesheet.key(valJustifyContentValue)(CSS_String.fromString(CSS_Property.isStringKey)("justify-content"));
   var isStringJustifyContentValue = {
       fromString: (function () {
@@ -4594,6 +4609,15 @@ var PS = {};
   var flexStart = function (dict) {
       return dict.flexStart;
   };
+  var flexGrow = function (i) {
+      return CSS_Stylesheet.key(CSS_Property.valValue)(CSS_String.fromString(CSS_Property.isStringKey)("flex-grow"))(CSS_String.fromString(CSS_Property.isStringValue)(Data_Show.show(Data_Show.showNumber)(i)));
+  };
+  var flexFlow = function (d) {
+      return function (w) {
+          return CSS_Stylesheet.key(CSS_Property.valTuple(valFlexDirection)(valFlexWrap))(CSS_String.fromString(CSS_Property.isStringKey)("flex-flow"))(new Data_Tuple.Tuple(d, w));
+      };
+  };                                                                                                     
+  var column = FlexDirection(CSS_String.fromString(CSS_Property.isStringValue)("column"));
   var centerAlignItemsValue = {
       center: CSS_String.fromString(isStringAlignItemsValue)("center")
   };                                                                                                                   
@@ -4602,6 +4626,10 @@ var PS = {};
   exports["spaceAround"] = spaceAround;
   exports["spaceBetween"] = spaceBetween;
   exports["alignItems"] = alignItems;
+  exports["column"] = column;
+  exports["flexFlow"] = flexFlow;
+  exports["flexGrow"] = flexGrow;
+  exports["nowrap"] = nowrap;
   exports["wrap"] = wrap;
   exports["flexWrap"] = flexWrap;
   exports["justifyContent"] = justifyContent;
@@ -4682,7 +4710,8 @@ var PS = {};
   var paddingRight = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-right"));
   var paddingLeft = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-left"));
   var paddingBottom = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-bottom"));
-  var minWidth = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("min-width"));  
+  var minWidth = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("min-width"));
+  var minHeight = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("min-height"));
   var maxWidth = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("max-width"));
   var maxHeight = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("max-height"));
   var marginTop = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("margin-top"));
@@ -4695,6 +4724,7 @@ var PS = {};
   exports["width"] = width;
   exports["height"] = height;
   exports["minWidth"] = minWidth;
+  exports["minHeight"] = minHeight;
   exports["maxWidth"] = maxWidth;
   exports["maxHeight"] = maxHeight;
   exports["top"] = top;
@@ -11191,6 +11221,7 @@ var PS = {};
   exports["h4_"] = h4_;
   exports["iframe"] = iframe;
   exports["img"] = img;
+  exports["p"] = p;
   exports["p_"] = p_;
   exports["style"] = style;
 })(PS);
@@ -13171,7 +13202,7 @@ var PS = {};
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("aboutPanel") ])([ Halogen_HTML_Elements.h3_([ Halogen_HTML_Core.text(title) ]), Halogen_HTML_Elements.p_([ Halogen_HTML_Core.text(description) ]) ]);
       };
   };
-  var about = Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("about") ])([ Halogen_HTML_Elements.img([ Halogen_HTML_Properties.class_("yukiIcon"), Halogen_HTML_Properties.src("./public/images/yuki_icon1.png"), Halogen_HTML_Properties.width(80), Halogen_HTML_Properties.height(80) ]), Halogen_HTML_Elements.h2_([ Halogen_HTML_Core.text("\u3086\u304d\u304f\u3089\u3052 / Yukikurage") ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("mainContents") ])([ mkAbout("\u97f3\u697d")("\u751f\u97f3\u3068\u96fb\u5b50\u97f3\u3092\u7d44\u307f\u5408\u308f\u305b\u305f\u66f2\u3092\u3088\u304f\u4f5c\u3063\u3066\u3044\u307e\u3059\uff0e\u4e3b\u306a\u6d3b\u52d5\u5834\u6240\u306fSoundCloud\u3067\u3059\u304c\uff0cYoutube, \u30cb\u30b3\u30cb\u30b3\u52d5\u753b\u306b\u3082\u4e0a\u3052\u3066\u3044\u307e\u3059\uff0e"), mkAbout("\u7d75")("\u6642\u3005\u63cf\u3044\u3066\u307e\u3059\uff0e\u63cf\u3044\u305f\u7d75\u306f\u4e3b\u306bPixiv\u306b\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3057\u3066\u3044\u307e\u3059\uff0e"), mkAbout("\u30d7\u30ed\u30b0\u30e9\u30df\u30f3\u30b0\u95a2\u9023")("Haskell\u3084PureScript\u3092\u89e6\u3063\u3066\u3044\u307e\u3059\uff0eAtCoder \u7dd1\uff0e"), mkAbout("\u3053\u306e\u30b5\u30a4\u30c8\u306b\u3064\u3044\u3066")("\u50d5\u306e\u4f5c\u3063\u305f\u3082\u306e\u3084\u95a2\u308f\u3063\u305f\u3082\u306e\u3092\u307e\u3068\u3081\u308b\u30b5\u30a4\u30c8\u3067\u3059\uff0ePureScript\u3067\u4f5c\u3063\u3066\u3044\u307e\u3059\uff0e ") ]) ]);
+  var about = Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("about") ])([ Halogen_HTML_Elements.img([ Halogen_HTML_Properties.class_("yukiIcon"), Halogen_HTML_Properties.src("./public/images/yuki_icon1.png"), Halogen_HTML_Properties.width(80), Halogen_HTML_Properties.height(80) ]), Halogen_HTML_Elements.h2_([ Halogen_HTML_Core.text("\u3086\u304d\u304f\u3089\u3052 / Yukikurage") ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("mainContents") ])([ mkAbout("\u97f3\u697d")("\u751f\u97f3\u3068\u96fb\u5b50\u97f3\u3092\u7d44\u307f\u5408\u308f\u305b\u305f\u66f2\u3092\u3088\u304f\u4f5c\u3063\u3066\u3044\u307e\u3059\uff0e\u4e3b\u306a\u6d3b\u52d5\u5834\u6240\u306fSoundCloud\u3067\u3059\u304c\uff0cYoutube, \u30cb\u30b3\u30cb\u30b3\u52d5\u753b\u306b\u3082\u4e0a\u3052\u3066\u3044\u307e\u3059\uff0e"), mkAbout("\u7d75")("\u6642\u3005\u63cf\u3044\u3066\u307e\u3059\uff0e\u63cf\u3044\u305f\u7d75\u306f\u4e3b\u306bPixiv\u306b\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3057\u3066\u3044\u307e\u3059\uff0e"), mkAbout("\u30d7\u30ed\u30b0\u30e9\u30df\u30f3\u30b0\u95a2\u9023")("Haskell\u3084PureScript\u3092\u89e6\u3063\u3066\u3044\u307e\u3059\uff0e\x0aAtCoder \u7dd1\uff0e"), mkAbout("\u3053\u306e\u30b5\u30a4\u30c8\u306b\u3064\u3044\u3066")("\u50d5\u306e\u4f5c\u3063\u305f\u3082\u306e\u3084\u95a2\u308f\u3063\u305f\u3082\u306e\u3092\u307e\u3068\u3081\u308b\u30b5\u30a4\u30c8\u3067\u3059\uff0ePureScript\u3067\u4f5c\u3063\u3066\u3044\u307e\u3059\uff0e ") ]) ]);
   exports["about"] = about;
 })(PS);
 (function($PS) {
@@ -13305,6 +13336,16 @@ var PS = {};
   var YukiPortfolio_Parts_ErrorMessage = $PS["YukiPortfolio.Parts.ErrorMessage"];                
   var notFound = YukiPortfolio_Parts_ErrorMessage.errorMessage("\u30da\u30fc\u30b8\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f")("\x0a( ^-^)_\u65e6\"\"");
   exports["notFound"] = notFound;
+})(PS);
+(function($PS) {
+  "use strict";
+  $PS["YukiPortfolio.Parts.Copyright"] = $PS["YukiPortfolio.Parts.Copyright"] || {};
+  var exports = $PS["YukiPortfolio.Parts.Copyright"];
+  var Halogen_HTML_Core = $PS["Halogen.HTML.Core"];
+  var Halogen_HTML_Elements = $PS["Halogen.HTML.Elements"];
+  var Halogen_HTML_Properties = $PS["Halogen.HTML.Properties"];                
+  var copyright = Halogen_HTML_Elements.p([ Halogen_HTML_Properties.class_("copyright") ])([ Halogen_HTML_Core.text("\xa9\ufe0e 2021-2021 \u3086\u304d\u304f\u3089\u3052") ]);
+  exports["copyright"] = copyright;
 })(PS);
 (function($PS) {
   // Generated by purs version 0.14.4
@@ -13510,7 +13551,6 @@ var PS = {};
   exports["titleBar"] = titleBar;
 })(PS);
 (function($PS) {
-  // Generated by purs version 0.14.4
   "use strict";
   $PS["YukiPortfolio.Components.Body"] = $PS["YukiPortfolio.Components.Body"] || {};
   var exports = $PS["YukiPortfolio.Components.Body"];
@@ -13531,6 +13571,7 @@ var PS = {};
   var YukiPortfolio_Pages_About = $PS["YukiPortfolio.Pages.About"];
   var YukiPortfolio_Pages_Musics = $PS["YukiPortfolio.Pages.Musics"];
   var YukiPortfolio_Pages_NotFound = $PS["YukiPortfolio.Pages.NotFound"];
+  var YukiPortfolio_Parts_Copyright = $PS["YukiPortfolio.Parts.Copyright"];
   var YukiPortfolio_Parts_MusicPlayer = $PS["YukiPortfolio.Parts.MusicPlayer"];
   var YukiPortfolio_Parts_NavigationBar = $PS["YukiPortfolio.Parts.NavigationBar"];
   var YukiPortfolio_Parts_TitleBar = $PS["YukiPortfolio.Parts.TitleBar"];
@@ -13568,7 +13609,7 @@ var PS = {};
                                       return Control_Applicative.pure(Halogen_Hooks_HookM.applicativeHookM)(Data_Maybe.Just.create(Halogen_Hooks_HookM.unsubscribe(subscription)));
                                   });
                               })))(function () {
-                                  return Halogen_Hooks_Hook.pure(Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("bodyRoot") ])([ Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("header") ])([ YukiPortfolio_Parts_TitleBar.titleBar, YukiPortfolio_Parts_NavigationBar.navigationBar([ YukiPortfolio_Types_Pages.About.value, YukiPortfolio_Types_Pages.Musics.value, YukiPortfolio_Types_Pages.Pictures.value, YukiPortfolio_Types_Pages.WebApps.value ])(v3.value0) ]), (function () {
+                                  return Halogen_Hooks_Hook.pure(Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("bodyRoot") ])([ Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("static") ])([ Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("header") ])([ YukiPortfolio_Parts_TitleBar.titleBar, YukiPortfolio_Parts_NavigationBar.navigationBar([ YukiPortfolio_Types_Pages.About.value, YukiPortfolio_Types_Pages.Musics.value, YukiPortfolio_Types_Pages.Pictures.value, YukiPortfolio_Types_Pages.WebApps.value ])(v3.value0), YukiPortfolio_Parts_MusicPlayer.musicPlayer(v2.value0) ]) ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("dynamic") ])([ Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("main") ])([ (function () {
                                       if (v3.value0 instanceof YukiPortfolio_Types_Pages.Musics) {
                                           return musicsPage;
                                       };
@@ -13584,8 +13625,8 @@ var PS = {};
                                       if (v3.value0 instanceof YukiPortfolio_Types_Pages.NotFound) {
                                           return YukiPortfolio_Pages_NotFound.notFound;
                                       };
-                                      throw new Error("Failed pattern match at YukiPortfolio.Components.Body (line 45, column 7 - line 50, column 29): " + [ v3.value0.constructor.name ]);
-                                  })(), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("footer") ])([  ]), YukiPortfolio_Parts_MusicPlayer.musicPlayer(v2.value0) ]));
+                                      throw new Error("Failed pattern match at YukiPortfolio.Components.Body (line 51, column 11 - line 56, column 33): " + [ v3.value0.constructor.name ]);
+                                  })() ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("footer") ])([ YukiPortfolio_Parts_Copyright.copyright ]) ]) ]));
                               });
                           });
                       });
@@ -13745,44 +13786,36 @@ var PS = {};
                       });
                   });
               })))(function () {
-                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("bodyRoot")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(160.0)))(function () {
-                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(120.0)))(function () {
-                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Meiryo", "\u30e1\u30a4\u30ea\u30aa", "Verdana" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
-                              return CSS_Font.color(yukiBlack);
-                          });
-                      });
-                  })))(function () {
-                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("navigationBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiGreyYellow(0.8)))(function () {
-                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
-                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginTop(CSS_Size.px(0.0)))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(16.0)))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(16.0)))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Montserrat" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
-                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
-                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.a)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Size.px(20.0)))(function () {
-                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Size.px(20.0)))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(150.0)))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Text.textDecoration(CSS_Text.noneTextDecoration))(function () {
-                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.relative))(function () {
-                                                                              return CSS_Display.display(CSS_Display.inlineBlock);
-                                                                          });
+                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("navigationBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiGreyYellow(0.8)))(function () {
+                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
+                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginTop(CSS_Size.px(0.0)))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(16.0)))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(16.0)))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Montserrat" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.a)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Size.px(20.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Size.px(20.0)))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(150.0)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Text.textDecoration(CSS_Text.noneTextDecoration))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.relative))(function () {
+                                                                          return CSS_Display.display(CSS_Display.inlineBlock);
                                                                       });
                                                                   });
                                                               });
-                                                          })))(function () {
-                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(2.0)))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
-                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''"))(function () {
-                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(2.0)))(function () {
-                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background["backgroundColor'"])(yukiRed))(function () {
-                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.0))(function () {
-                                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("hidden"))(function () {
-                                                                                                  return CSS_Transition.transitionDuration("0.08s");
-                                                                                              });
+                                                          });
+                                                      })))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(2.0)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''"))(function () {
+                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(2.0)))(function () {
+                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background["backgroundColor'"])(yukiRed))(function () {
+                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.0))(function () {
+                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("hidden"))(function () {
+                                                                                              return CSS_Transition.transitionDuration("0.08s");
                                                                                           });
                                                                                       });
                                                                                   });
@@ -13790,18 +13823,18 @@ var PS = {};
                                                                           });
                                                                       });
                                                                   });
-                                                              })))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:link"))(CSS_Font.color(yukiBlack)))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:visited"))(CSS_Font.color(yukiBlack)))(function () {
-                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover"))(CSS_Font.color(yukiBlack)))(function () {
-                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(1.0))(function () {
-                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(-4.0)))(function () {
-                                                                                      return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("visible");
-                                                                                  });
-                                                                              })))(function () {
-                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:active"))(CSS_Font.color(yukiBlack)))(function () {
-                                                                                      return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Elements.a)(CSS_Selector.byClass("nowPage")))(CSS_Font.color(yukiRed));
-                                                                                  });
+                                                              });
+                                                          })))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:link"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:visited"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(1.0))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(-4.0)))(function () {
+                                                                                  return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("visible");
+                                                                              });
+                                                                          })))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:active"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                                  return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Elements.a)(CSS_Selector.byClass("nowPage")))(CSS_Font.color(yukiRed));
                                                                               });
                                                                           });
                                                                       });
@@ -13816,10 +13849,12 @@ var PS = {};
                                   });
                               });
                           });
-                      })))(function () {
-                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginBottom(CSS_Size.px(0.0)))(function () {
-                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(100.0)))(function () {
+                      });
+                  })))(function () {
+                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginBottom(CSS_Size.px(0.0)))(function () {
+                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(60.0)))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingLeft(CSS_Size.px(20.0)))(function () {
                                       return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter)))(function () {
                                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundImage(CSS_Background.url("./public/images/nou2_nologo.png")))(function () {
                                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("background-size"))("calc(max(100%, 1000px))"))(function () {
@@ -13829,50 +13864,54 @@ var PS = {};
                                       });
                                   });
                               });
+                          });
+                      })))(function () {
+                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar::before")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiBlack))(function () {
+                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.8))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.right(CSS_Size.px(0.0)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(0.0)))(function () {
+                                                      return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''");
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  });
+                              });
                           })))(function () {
-                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar::before")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiBlack))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.8))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.right(CSS_Size.px(0.0)))(function () {
-                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(0.0)))(function () {
-                                                          return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''");
+                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("content")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.alignItems(CSS_Common.center(CSS_Flexbox.centerAlignItemsValue)))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.pct(100.0)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("icon")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(70.0)))(function () {
+                                                          return CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize));
+                                                      })))(function () {
+                                                          return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("yukikurage")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(100.0)))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Big Shoulders Display" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.color(Color.white))(function () {
+                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(250.0)))(function () {
+                                                                              return CSS_Text_Whitespace.textWhitespace(CSS_Text_Whitespace.whitespaceNoWrap);
+                                                                          });
+                                                                      });
+                                                                  });
+                                                              });
+                                                          }));
                                                       });
                                                   });
                                               });
                                           });
                                       });
                                   });
-                              })))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("content")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.alignItems(CSS_Common.center(CSS_Flexbox.centerAlignItemsValue)))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.pct(100.0)))(function () {
-                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("icon")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(70.0)))(function () {
-                                                              return CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize));
-                                                          })))(function () {
-                                                              return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("yukikurage")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(60.0)))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Big Shoulders Display" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
-                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.color(Color.white))(function () {
-                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(250.0)))(function () {
-                                                                                  return CSS_Text_Whitespace.textWhitespace(CSS_Text_Whitespace.whitespaceNoWrap);
-                                                                              });
-                                                                          });
-                                                                      });
-                                                                  });
-                                                              }));
-                                                          });
-                                                      });
-                                                  });
-                                              });
-                                          });
-                                      });
-                                  }))))(function () {
-                                      return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("header")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.zIndex(100))(function () {
+                              }))))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("bodyRoot")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Meiryo", "\u30e1\u30a4\u30ea\u30aa", "Verdana" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                                      return CSS_Font.color(yukiBlack);
+                                  })))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("header")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.zIndex(100))(function () {
                                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.fixed))(function () {
                                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
                                                   return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
@@ -13880,7 +13919,39 @@ var PS = {};
                                                   });
                                               });
                                           });
-                                      }));
+                                      })))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("dynamic")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.right(CSS_Size.px(0.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(0.0)))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexFlow(CSS_Flexbox.column)(CSS_Flexbox.nowrap))(function () {
+                                                                      return CSS_Geometry.minHeight(CSS_Size.vh(100.0));
+                                                                  });
+                                                              });
+                                                          });
+                                                      });
+                                                  });
+                                              });
+                                          })))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("main")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(160.0)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexGrow(1.0))(function () {
+                                                      return CSS_Geometry.marginBottom(CSS_Size.px(100.0));
+                                                  });
+                                              })))(function () {
+                                                  return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("footer")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.zIndex(80))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiGreyYellow(1.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.color(yukiBlack))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(120.0)))(function () {
+                                                                  return CSS_Geometry.paddingLeft(CSS_Size.px(20.0));
+                                                              });
+                                                          });
+                                                      });
+                                                  }));
+                                              });
+                                          });
+                                      });
                                   });
                               });
                           });

@@ -18,6 +18,7 @@ import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Pages.About (about)
 import YukiPortfolio.Pages.Musics (useMusicsPage)
 import YukiPortfolio.Pages.NotFound (notFound)
+import YukiPortfolio.Parts.Copyright (copyright)
 import YukiPortfolio.Parts.MusicPlayer (musicPlayer)
 import YukiPortfolio.Parts.NavigationBar (navigationBar)
 import YukiPortfolio.Parts.TitleBar (titleBar)
@@ -38,20 +39,27 @@ component = Hooks.component \_ _ -> Hooks.do
     pure $ Just $ Hooks.unsubscribe subscription
 
   Hooks.pure $ HH.div [HP.class_ $ H.ClassName "bodyRoot"]
-    [ HH.div [HP.class_ $ H.ClassName "header"]
-      [ titleBar
-      , navigationBar [About, Musics, Pictures, WebApps] nowPage
+    [ HH.div [HP.class_ $ H.ClassName "static"]
+      [ HH.div [HP.class_ $ H.ClassName "header"]
+        [ titleBar
+        , navigationBar [About, Musics, Pictures, WebApps] nowPage
+        , musicPlayer nowPlaying
+        ]
       ]
-    , case nowPage of
-        Musics -> musicsPage
-        About -> about
-        Pictures -> HH.div_ []
-        WebApps -> HH.div_ []
-        NotFound -> notFound
-    , HH.div [HP.class_ $ H.ClassName "footer"]
-      [
+    , HH.div [HP.class_ $ H.ClassName "dynamic"]
+      [ HH.div [HP.class_ $ H.ClassName "main"]
+        [ case nowPage of
+            Musics -> musicsPage
+            About -> about
+            Pictures -> HH.div_ []
+            WebApps -> HH.div_ []
+            NotFound -> notFound
+        ]
+      , HH.div [HP.class_ $ H.ClassName "footer"]
+        [
+          copyright
+        ]
       ]
-    , musicPlayer nowPlaying
     ]
   where
     subscribeToHashChange :: (Pages -> Hooks.HookM m Unit) -> Hooks.HookM m H.SubscriptionId
