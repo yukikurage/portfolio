@@ -13,7 +13,7 @@ about = HH.div [HP.class_ $ H.ClassName "about"]
   , HH.div [HP.class_ $ H.ClassName "mainContents"]
     [ mkAbout "音楽" "生音と電子音を組み合わせた曲をよく作っています．主な活動場所はSoundCloudですが，Youtube, ニコニコ動画にも上げています．"
     , mkAbout "絵" "時々描いてます．描いた絵は主にPixivにアップロードしています．"
-    , mkAbout "プログラミング関連" "HaskellやPureScriptを触っています．AtCoder 緑．"
+    , mkAbout "プログラミング関連" "HaskellやPureScriptを触っています．\nAtCoder 緑．"
     , mkAbout "このサイトについて" "僕の作ったものや関わったものをまとめるサイトです．PureScriptで作っています． "
     ]
   ]
