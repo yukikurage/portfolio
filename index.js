@@ -2457,10 +2457,24 @@ var PS = {};
   var CSS_Property = $PS["CSS.Property"];
   var CSS_String = $PS["CSS.String"];
   var CSS_Stylesheet = $PS["CSS.Stylesheet"];
+  var Data_Tuple = $PS["Data.Tuple"];                
+  var Side = function (x) {
+      return x;
+  };
   var BackgroundRepeat = function (x) {
       return x;
   };
+  var valSide = {
+      value: function (v) {
+          return v;
+      }
+  };
   var valBackgroundRepeat = {
+      value: function (v) {
+          return v;
+      }
+  };
+  var valBackgroundPosition = {
       value: function (v) {
           return v;
       }
@@ -2472,9 +2486,16 @@ var PS = {};
   };
   var url = function (u) {
       return CSS_Property.value(CSS_Property.valString)("url(\"" + (u + "\")"));
+  };                                                                             
+  var sideCenter = Side(CSS_String.fromString(CSS_Property.isStringValue)("center"));
+  var placed = function (a) {
+      return function (b) {
+          return CSS_Property.value(CSS_Property.valTuple(valSide)(valSide))(new Data_Tuple.Tuple(a, b));
+      };
   };
   var noRepeat = BackgroundRepeat(CSS_String.fromString(CSS_Property.isStringValue)("no-repeat"));                                                            
   var backgroundRepeat = CSS_Stylesheet.key(valBackgroundRepeat)(CSS_String.fromString(CSS_Property.isStringKey)("background-repeat"));
+  var backgroundPosition = CSS_Stylesheet.key(valBackgroundPosition)(CSS_String.fromString(CSS_Property.isStringKey)("background-position"));
   var backgroundColor = CSS_Stylesheet.key(CSS_Property.valColor)(CSS_String.fromString(CSS_Property.isStringKey)("background-color"));
   var backgroundBackgroundImage = {
       background: CSS_Stylesheet.key(valBackgroundImage)(CSS_String.fromString(CSS_Property.isStringKey)("background")),
@@ -2487,9 +2508,12 @@ var PS = {};
   };
   exports["background"] = background;
   exports["backgroundColor"] = backgroundColor;
+  exports["backgroundPosition"] = backgroundPosition;
+  exports["placed"] = placed;
   exports["backgroundRepeat"] = backgroundRepeat;
   exports["noRepeat"] = noRepeat;
   exports["url"] = url;
+  exports["sideCenter"] = sideCenter;
   exports["backgroundBackgroundImage"] = backgroundBackgroundImage;
 })(PS);
 (function($PS) {
@@ -13110,7 +13134,9 @@ var PS = {};
                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Cursor.cursor(CSS_Cursor.pointer))(function () {
                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background.backgroundBackgroundImage)(CSS_Background.url("./public/images/loading_black.gif")))(function () {
                                   return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundRepeat(CSS_Background.noRepeat))(function () {
-                                      return CSS_Background.backgroundColor(Color.rgb(207)(207)(207));
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(Color.rgb(240)(240)(240)))(function () {
+                                          return CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter));
+                                      });
                                   });
                               });
                           });
