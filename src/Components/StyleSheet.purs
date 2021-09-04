@@ -57,13 +57,13 @@ style = do
     height $ px 120.0
     border solid (px 0.0) black
   star & byClass "bodyRoot" ? do
-    marginTop $ px 140.0
+    marginTop $ px 160.0
     marginBottom $ px 120.0
   star & byClass "navigationBar" ? do
     display flex
     marginLeft auto
     marginRight auto
-    marginTop $ px 26.0
+    marginTop $ px 22.0
     marginBottom $ px 10.0
     fontFamily ["Courier"] $ NonEmpty.singleton sansSerif
     fontWeight bold
@@ -84,14 +84,15 @@ style = do
       color $ rgb 168 35 62
   star & byClass "titleBar" ? do
     width $ pct 100.0
-    height $ px 72.0
+    height $ px 100.0
+    backgroundPosition $ placed sideCenter sideCenter
     backgroundImage $ url "./public/images/nou2_nologo.png"
     backgroundSize cover
     display flex
     alignItems Common.center
     justifyContent Common.center
     star & byClass "icon" ? do
-      maxHeight $ pct 90.0
+      maxHeight $ pct 80.0
       width auto
   star & byClass "header" ? do
     position fixed
