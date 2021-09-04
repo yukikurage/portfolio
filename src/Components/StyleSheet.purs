@@ -2,7 +2,7 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (CSS, a, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, paddingLeft, paddingRight, paddingTop, pct, position, px, query, rgb, solid, spaceBetween, star, width, wrap, (&), (?))
+import CSS (CSS, a, background, backgroundColor, backgroundRepeat, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, position, px, query, rgb, solid, spaceBetween, star, url, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
@@ -30,11 +30,13 @@ style = do
     width $ pct $ 100.0 / 4.0
     textAlign center
     img ? do
-      width auto
       height auto
-      maxWidth $ pct 100.0
+      width $ pct 100.0
       maxHeight $ pct 100.0
       cursor pointer
+      background $ url "./public/images/loading_black.gif"
+      backgroundRepeat $ noRepeat
+      backgroundColor $ rgb 207 207 207
   star & byClass "musicPanelInner" ? do
     paddingLeft $ px 6.0
     paddingRight $ px 6.0

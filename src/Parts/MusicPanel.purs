@@ -16,7 +16,7 @@ musicPanel (Music music) nowPlayingId =
   [ HH.div
     [ HP.class_ $ HH.ClassName "musicPanelInner"
     , HE.onClick (\_ -> Hooks.put nowPlayingId (Playing $ Music music))]
-    [ HH.img [HP.src music.thumbnail]
+    [ HH.img [HP.src music.thumbnail, HP.width 200, HP.height 200]
     , HH.h4_ [HH.text music.title]
     , HH.p_ [HH.text music.description]
     ]
