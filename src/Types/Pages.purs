@@ -15,7 +15,7 @@ showPage :: Pages -> String
 showPage = case _ of
   About -> "About"
   Musics -> "Musics"
-  Pictures -> "Pictures"
+  Pictures -> "Illustrations"
   WebApps -> "WebApps"
   NotFound -> "NotFound"
 
