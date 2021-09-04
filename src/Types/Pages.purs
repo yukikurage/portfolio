@@ -19,7 +19,6 @@ showPage = case _ of
   WebApps -> "WebApps"
   NotFound -> "NotFound"
 
-
 pageToHash :: Pages -> String
 pageToHash = case _ of
   About -> "about"
@@ -34,4 +33,5 @@ hashToPage = case _ of
   "musics" -> Musics
   "pictures" -> Pictures
   "webapps" -> WebApps
+  "" -> About
   _ -> NotFound

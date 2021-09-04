@@ -2,14 +2,13 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (CSS, Color, a, absolute, alignItems, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, backgroundSize, black, border, bottom, byClass, color, cover, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexStart, flexWrap, fontFamily, fontSize, footer, fromString, height, img, inlineBlock, justifyContent, left, linear, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, noneTextDecoration, offsetCenter, offsetTop, opacity, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceBetween, star, textDecoration, textWhitespace, top, transform, transformOrigin, transition, transitionDelay, transitionDuration, url, white, whitespaceNoWrap, width, wrap, (&), (?))
+import CSS (AnimationName(..), CSS, Color, a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, cursor, display, ease, fixed, flex, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
-import CSS.TextAlign (center, textAlign)
-import CSS.Transform (scale)
+import CSS.TextAlign (center, startTextAlign, textAlign)
 import Data.NonEmpty as NonEmpty
 import Halogen as H
 import Halogen.HTML.CSS as HC
@@ -18,15 +17,59 @@ import Halogen.Hooks as Hooks
 yukiRed :: Color
 yukiRed = rgb 168 35 62
 
-yukiGreyYellow :: Color
-yukiGreyYellow = rgb 245 241 231
+yukiGreyYellow :: Number -> Color
+yukiGreyYellow op = rgba 245 241 231 op
 
 yukiBlack :: Color
-yukiBlack = rgb 20 20 20
+yukiBlack = rgb 50 50 50
 
-style :: CSS
-style = do
+fadeIn :: String -> CSS
+fadeIn id = do
+  keyframesFromTo ("fadeIn" <> id)
+    do opacity 0.0
+    do opacity 1.0
+  animation
+    (AnimationName $ value $ "fadeIn" <> id)
+    (sec 0.2)
+    ease
+    (sec 0.0)
+    (iterationCount 1.0)
+    normalAnimationDirection forwards
+
+aboutPageStyle :: CSS
+aboutPageStyle = do
+  star & byClass "about" ? do
+    fadeIn "about"
+    color yukiBlack
+    marginTop $ px 10.0
+    textAlign center
+    star & byClass "yukiIcon" ? do
+      borderRadius (pct 50.0) (pct 50.0) (pct 50.0) (pct 50.0)
+      marginLeft auto
+      marginRight auto
+      display block
+    star & byClass "mainContents" ? do
+      maxWidth $ px 800.0
+      minWidth $ px 400.0
+      marginLeft auto
+      marginRight auto
+      paddingTop $ px 10.0
+      display flex
+      flexWrap wrap
+      justifyContent spaceAround
+    star & byClass "aboutPanel" ? do
+      marginTop $ px 5.0
+      marginBottom $ px 5.0
+      width $ px $ 350.0
+      height auto
+      textAlign $ center
+      p ? do
+        textAlign startTextAlign
+
+musicPageStyle :: CSS
+musicPageStyle = do
   star & byClass "musics" ? do
+    fadeIn "musics"
     maxWidth $ px 1000.0
     minWidth $ px 250.0
     marginLeft auto
@@ -45,7 +88,7 @@ style = do
       cursor pointer
       background $ url "./public/images/loading_black.gif"
       backgroundRepeat $ noRepeat
-      backgroundColor yukiGreyYellow
+      backgroundColor $ yukiGreyYellow 1.0
       backgroundPosition $ placed sideCenter sideCenter
   star & byClass "musicPanelInner" ? do
     paddingLeft $ px 6.0
@@ -59,6 +102,11 @@ style = do
   query screen (NonEmpty.singleton $ CMedia.maxWidth $ px 500.0) do
     star & byClass "musicPanel" ? do
       width $ pct $ 100.0
+
+style :: CSS
+style = do
+  aboutPageStyle
+  musicPageStyle
   star & byClass "musicPlayer" ? do
     position fixed
     bottom $ px 0.0
@@ -66,13 +114,14 @@ style = do
     width $ pct 100.0
     height $ px 120.0
     border solid (px 0.0) yukiBlack
+    zIndex 90
   star & byClass "bodyRoot" ? do
-    marginTop $ px 160.0
-    marginBottom $ px 120.0
+    paddingTop $ px 160.0
+    paddingBottom $ px 120.0
     fontFamily ["Meiryo UI","メイリオ","Verdana","ＭＳ Ｐゴシック"] $ NonEmpty.singleton sansSerif
+    color $ yukiBlack
   star & byClass "navigationBar" ? do
-    backgroundColor yukiGreyYellow
-    opacity 0.8
+    backgroundColor $ yukiGreyYellow 0.8
     display flex
     marginLeft auto
     marginRight auto
@@ -151,17 +200,11 @@ style = do
         fontSize $ pct 250.0
         textWhitespace whitespaceNoWrap
   star & byClass "header" ? do
+    zIndex 100
     position fixed
     left $ px 0.0
     top $ px 0.0
     width $ pct 100.0
-  main ? do
-    flexGrow $ 1.0
-    flexShrink $ 1.0
-    flexBasis $ px 0.0
-  footer ? do
-    width $ pct 100.0
-    marginTop auto
 
 component :: forall query input output m. H.Component query input output m
 component = Hooks.component \_ _ -> Hooks.do

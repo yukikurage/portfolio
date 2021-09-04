@@ -15,7 +15,9 @@ import Web.Event.Event (EventType(..))
 import Web.HTML as HTML
 import Web.HTML.Window as Window
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
+import YukiPortfolio.Pages.About (about)
 import YukiPortfolio.Pages.Musics (useMusicsPage)
+import YukiPortfolio.Pages.NotFound (notFound)
 import YukiPortfolio.Parts.MusicPlayer (musicPlayer)
 import YukiPortfolio.Parts.NavigationBar (navigationBar)
 import YukiPortfolio.Parts.TitleBar (titleBar)
@@ -40,9 +42,12 @@ component = Hooks.component \_ _ -> Hooks.do
       [ titleBar
       , navigationBar [About, Musics, Pictures, WebApps] nowPage
       ]
-    , if nowPage == Musics
-        then musicsPage
-        else HH.div_ []
+    , case nowPage of
+        Musics -> musicsPage
+        About -> about
+        Pictures -> HH.div_ []
+        WebApps -> HH.div_ []
+        NotFound -> notFound
     , musicPlayer nowPlaying
     ]
   where
