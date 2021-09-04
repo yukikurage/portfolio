@@ -13747,7 +13747,7 @@ var PS = {};
               })))(function () {
                   return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("bodyRoot")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(160.0)))(function () {
                       return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(120.0)))(function () {
-                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Meiryo UI", "\u30e1\u30a4\u30ea\u30aa", "Verdana", "\uff2d\uff33 \uff30\u30b4\u30b7\u30c3\u30af" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Meiryo", "\u30e1\u30a4\u30ea\u30aa", "Verdana" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
                               return CSS_Font.color(yukiBlack);
                           });
                       });

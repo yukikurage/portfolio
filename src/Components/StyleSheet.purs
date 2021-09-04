@@ -124,7 +124,7 @@ style = do
   star & byClass "bodyRoot" ? do
     paddingTop $ px 160.0
     paddingBottom $ px 120.0
-    fontFamily ["Meiryo UI","メイリオ","Verdana","ＭＳ Ｐゴシック"] $ NonEmpty.singleton sansSerif
+    fontFamily ["Meiryo","メイリオ","Verdana"] $ NonEmpty.singleton sansSerif
     color $ yukiBlack
   star & byClass "navigationBar" ? do
     backgroundColor $ yukiGreyYellow 0.8
