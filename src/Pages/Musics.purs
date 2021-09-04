@@ -40,6 +40,6 @@ useMusicsPage nowPlayingId = Hooks.do
       $ HH.div
           [ HP.class_ $ H.ClassName "musics"
           ]
-      $ either (ErrorMessage.errorMessage >>> singleton) (map (\music -> MusicPanel.musicPanel music nowPlayingId) >>> (_ <> dummies)) musics
+      $ either (ErrorMessage.errorMessage "曲情報が取得できませんでした" >>> singleton) (map (\music -> MusicPanel.musicPanel music nowPlayingId) >>> (_ <> dummies)) musics
   where
     dummies = replicate 4 $ HH.div [ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]

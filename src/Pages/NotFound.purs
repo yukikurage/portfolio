@@ -1,6 +1,7 @@
 module YukiPortfolio.Pages.NotFound where
 
-import Halogen.HTML (HTML, div_, text)
+import Halogen.HTML (HTML)
+import YukiPortfolio.Parts.ErrorMessage (errorMessage)
 
 notFound :: forall w i. HTML w i
-notFound = div_ [text "Page Not Found!\n( ^-^)_旦\"\""]
+notFound = errorMessage "ページが見つかりませんでした" "\n( ^-^)_旦\"\""

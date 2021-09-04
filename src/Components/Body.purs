@@ -48,6 +48,9 @@ component = Hooks.component \_ _ -> Hooks.do
         Pictures -> HH.div_ []
         WebApps -> HH.div_ []
         NotFound -> notFound
+    , HH.div [HP.class_ $ H.ClassName "footer"]
+      [
+      ]
     , musicPlayer nowPlaying
     ]
   where

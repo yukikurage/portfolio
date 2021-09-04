@@ -36,6 +36,11 @@ fadeIn id = do
     (iterationCount 1.0)
     normalAnimationDirection forwards
 
+errorMessageStyle :: CSS
+errorMessageStyle = do
+  star & byClass "errorMessage" ? do
+    textAlign center
+
 aboutPageStyle :: CSS
 aboutPageStyle = do
   star & byClass "about" ? do
@@ -105,6 +110,7 @@ musicPageStyle = do
 
 style :: CSS
 style = do
+  errorMessageStyle
   aboutPageStyle
   musicPageStyle
   star & byClass "musicPlayer" ? do
