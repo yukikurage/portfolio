@@ -12,7 +12,7 @@ import Safe.Coerce (coerce)
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Classes.NavigationHandler (class NavigationHandler)
 import YukiPortfolio.Data.Musics as Musics
-import YukiPortfolio.Types.Page (pageToHash)
+import YukiPortfolio.Types.Pages (pageToHash)
 
 newtype App a
   = Cons (Aff a)

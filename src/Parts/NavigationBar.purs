@@ -7,7 +7,7 @@ import Data.Maybe (Maybe(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
-import YukiPortfolio.Types.Page (Pages, pageToHash, showPage)
+import YukiPortfolio.Types.Pages (Pages, pageToHash, showPage)
 
 navigationBar :: forall w i. Array Pages -> Pages -> HH.HTML w i
 navigationBar pages nowPage = HH.div [HP.class_ $ H.ClassName $ "navigationBar"] $
