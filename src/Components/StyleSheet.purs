@@ -2,13 +2,13 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (AnimationName(..), CSS, Color, a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, cursor, display, ease, fixed, flex, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
+import CSS (AnimationName(..), CSS, Color, GenericFontFamily(..), a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, cursor, display, ease, fixed, flex, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
-import CSS.TextAlign (center, startTextAlign, textAlign)
+import CSS.TextAlign (center, leftTextAlign, startTextAlign, textAlign)
 import Data.NonEmpty as NonEmpty
 import Halogen as H
 import Halogen.HTML.CSS as HC
@@ -40,6 +40,18 @@ errorMessageStyle :: CSS
 errorMessageStyle = do
   star & byClass "errorMessage" ? do
     textAlign center
+
+asciiArtStyle :: CSS
+asciiArtStyle = do
+  star & byClass "asciiBlock" ? do
+    width auto
+    height auto
+    marginLeft auto
+    marginRight auto
+    star & byClass "ascii" ? do
+      textAlign leftTextAlign
+      fontFamily ["ＭＳ Ｐゴシック","ＭＳＰゴシック","MSPゴシック","MS Pゴシック"] $ NonEmpty.singleton
+        $ GenericFontFamily $ value "monospace"
 
 aboutPageStyle :: CSS
 aboutPageStyle = do
