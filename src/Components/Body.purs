@@ -15,8 +15,8 @@ import Web.Event.Event (EventType(..))
 import Web.HTML as HTML
 import Web.HTML.Window as Window
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
-import YukiPortfolio.Pages (Pages(..), hashToPage)
-import YukiPortfolio.Pages.Musics (useMusicsPage)
+import YukiPortfolio.Types.Pages (Pages(..), hashToPage)
+import YukiPortfolio.Types.Pages.Musics (useMusicsPage)
 import YukiPortfolio.Parts.MusicPlayer (musicPlayer)
 import YukiPortfolio.Parts.NavigationBar (navigationBar)
 import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))

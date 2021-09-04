@@ -2,7 +2,7 @@ module YukiPortfolio.Classes.NavigationHandler where
 
 import Prelude
 
-import YukiPortfolio.Pages (Pages)
+import YukiPortfolio.Types.Pages (Pages)
 
 class Monad m <= NavigationHandler m where
   navigate :: Pages -> m Unit
