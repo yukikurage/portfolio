@@ -2,7 +2,7 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (CSS, a, background, backgroundColor, backgroundPosition, backgroundRepeat, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, placed, position, positioned, px, query, rgb, sideCenter, solid, spaceBetween, star, url, width, wrap, (&), (?))
+import CSS (CSS, a, background, backgroundColor, backgroundPosition, backgroundRepeat, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, placed, position, positioned, px, query, rgb, sansSerif, sideCenter, solid, spaceBetween, star, url, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
@@ -36,7 +36,7 @@ style = do
       cursor pointer
       background $ url "./public/images/loading_black.gif"
       backgroundRepeat $ noRepeat
-      backgroundColor $ rgb 240 240 240
+      backgroundColor $ rgb 245 241 231
       backgroundPosition $ placed sideCenter sideCenter
   star & byClass "musicPanelInner" ? do
     paddingLeft $ px 6.0
@@ -65,7 +65,7 @@ style = do
     marginRight auto
     marginTop $ px 10.0
     marginBottom $ px 10.0
-    fontFaceFamily "sans-serif"
+    fontFamily ["Courier"] $ NonEmpty.singleton sansSerif
     fontWeight bold
     justifyContent Common.center
     a ? do
