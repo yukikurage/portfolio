@@ -2,14 +2,13 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (CSS, a, background, backgroundColor, backgroundPosition, backgroundRepeat, black, bold, border, borderTop, bottom, byClass, color, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFaceFamily, fontFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, placed, position, positioned, px, query, rgb, sansSerif, sideCenter, solid, spaceBetween, star, url, width, wrap, (&), (?))
+import CSS (CSS, a, alignItems, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, backgroundSize, black, block, bold, border, bottom, byClass, color, cover, cursor, display, fixed, flex, flexBasis, flexGrow, flexShrink, flexWrap, fontFamily, fontSize, fontWeight, footer, fromString, height, img, justifyContent, left, main, margin, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, placed, position, px, query, relative, rgb, sansSerif, sideCenter, solid, spaceBetween, star, top, url, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
 import CSS.TextAlign (center, textAlign)
-import Color.Scheme.MaterialDesign (grey)
 import Data.NonEmpty as NonEmpty
 import Halogen as H
 import Halogen.HTML.CSS as HC
@@ -58,12 +57,13 @@ style = do
     height $ px 120.0
     border solid (px 0.0) black
   star & byClass "bodyRoot" ? do
+    marginTop $ px 140.0
     marginBottom $ px 120.0
   star & byClass "navigationBar" ? do
     display flex
     marginLeft auto
     marginRight auto
-    marginTop $ px 10.0
+    marginTop $ px 26.0
     marginBottom $ px 10.0
     fontFamily ["Courier"] $ NonEmpty.singleton sansSerif
     fontWeight bold
@@ -82,6 +82,22 @@ style = do
       color $ rgb 168 35 62
     a & byClass "nowPage" ? do
       color $ rgb 168 35 62
+  star & byClass "titleBar" ? do
+    width $ pct 100.0
+    height $ px 72.0
+    backgroundImage $ url "./public/images/nou2_nologo.png"
+    backgroundSize cover
+    display flex
+    alignItems Common.center
+    justifyContent Common.center
+    star & byClass "icon" ? do
+      maxHeight $ pct 90.0
+      width auto
+  star & byClass "header" ? do
+    position fixed
+    left $ px 0.0
+    top $ px 0.0
+    width $ pct 100.0
   main ? do
     flexGrow $ 1.0
     flexShrink $ 1.0

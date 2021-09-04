@@ -15,11 +15,12 @@ import Web.Event.Event (EventType(..))
 import Web.HTML as HTML
 import Web.HTML.Window as Window
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
-import YukiPortfolio.Types.Pages (Pages(..), hashToPage)
 import YukiPortfolio.Pages.Musics (useMusicsPage)
 import YukiPortfolio.Parts.MusicPlayer (musicPlayer)
 import YukiPortfolio.Parts.NavigationBar (navigationBar)
+import YukiPortfolio.Parts.TitleBar (titleBar)
 import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))
+import YukiPortfolio.Types.Pages (Pages(..), hashToPage)
 
 component :: forall query input output m. MusicHandler m
   => MonadEffect m
@@ -35,7 +36,10 @@ component = Hooks.component \_ _ -> Hooks.do
     pure $ Just $ Hooks.unsubscribe subscription
 
   Hooks.pure $ HH.div [HP.class_ $ H.ClassName "bodyRoot"]
-    [ navigationBar [About, Musics, Pictures, WebApps] nowPage
+    [ HH.div [HP.class_ $ H.ClassName "header"]
+      [ titleBar
+      , navigationBar [About, Musics, Pictures, WebApps] nowPage
+      ]
     , if nowPage == Musics
         then musicsPage
         else HH.div_ []
