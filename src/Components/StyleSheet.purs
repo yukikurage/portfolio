@@ -69,6 +69,7 @@ style = do
   star & byClass "bodyRoot" ? do
     marginTop $ px 160.0
     marginBottom $ px 120.0
+    fontFamily ["Meiryo UI","メイリオ","Verdana","ＭＳ Ｐゴシック"] $ NonEmpty.singleton sansSerif
   star & byClass "navigationBar" ? do
     backgroundColor yukiGreyYellow
     opacity 0.8
