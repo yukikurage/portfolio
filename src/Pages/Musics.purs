@@ -38,7 +38,7 @@ useMusicsPage nowPlayingId = Hooks.do
       pure Nothing
     Hooks.pure
       $ HH.div
-          [ HP.class_ $ H.ClassName "musicPanels"
+          [ HP.class_ $ H.ClassName "musics"
           ]
       $ either (ErrorMessage.errorMessage >>> singleton) (map (\music -> MusicPanel.musicPanel music nowPlayingId) >>> (_ <> dummies)) musics
   where

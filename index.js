@@ -831,6 +831,7 @@ var PS = {};
           };
       };
   };
+  var white = hsl(0.0)(0.0)(1.0);
   var cssStringHSLA = function (v) {
       var toString = function (n) {
           return Data_Show.show(Data_Show.showNumber)(Data_Int.toNumber(Data_Int.round(100.0 * n)) / 100.0);
@@ -845,10 +846,9 @@ var PS = {};
       };
       return "hsla(" + (hue + (", " + (saturation + (", " + (lightness + (", " + (alpha + ")")))))));
   };
-  var black = hsl(0.0)(0.0)(0.0);
   exports["rgb"] = rgb;
   exports["cssStringHSLA"] = cssStringHSLA;
-  exports["black"] = black;
+  exports["white"] = white;
 })(PS);
 (function(exports) {
   "use strict";
@@ -1588,6 +1588,7 @@ var PS = {};
   exports["plain"] = plain;
   exports["quote"] = quote;
   exports["cast"] = cast;
+  exports["isStringPrefixed"] = isStringPrefixed;
   exports["isStringKey"] = isStringKey;
   exports["isStringValue"] = isStringValue;
   exports["semigroupValue"] = semigroupValue;
@@ -2416,6 +2417,11 @@ var PS = {};
           };
       };
   };
+  var prefixed = function (dictVal) {
+      return function (xs) {
+          return key(dictVal)(xs);
+      };
+  };
   var functorStyleM = {
       map: function (f) {
           return function (v) {
@@ -2462,6 +2468,7 @@ var PS = {};
   exports["Import"] = Import;
   exports["runS"] = runS;
   exports["key"] = key;
+  exports["prefixed"] = prefixed;
   exports["select"] = select;
   exports["query"] = query;
   exports["bindStyleM"] = bindStyleM;
@@ -2478,18 +2485,10 @@ var PS = {};
   var Side = function (x) {
       return x;
   };
-  var BackgroundSize = function (x) {
-      return x;
-  };
   var BackgroundRepeat = function (x) {
       return x;
   };
   var valSide = {
-      value: function (v) {
-          return v;
-      }
-  };
-  var valBackgroundSize = {
       value: function (v) {
           return v;
       }
@@ -2518,12 +2517,16 @@ var PS = {};
           return CSS_Property.value(CSS_Property.valTuple(valSide)(valSide))(new Data_Tuple.Tuple(a, b));
       };
   };
-  var noRepeat = BackgroundRepeat(CSS_String.fromString(CSS_Property.isStringValue)("no-repeat"));
-  var cover = BackgroundSize(CSS_String.fromString(CSS_Property.isStringValue)("cover"));
-  var backgroundSize = CSS_Stylesheet.key(valBackgroundSize)(CSS_String.fromString(CSS_Property.isStringKey)("background-size"));                             
+  var noRepeat = BackgroundRepeat(CSS_String.fromString(CSS_Property.isStringValue)("no-repeat"));                                                            
   var backgroundRepeat = CSS_Stylesheet.key(valBackgroundRepeat)(CSS_String.fromString(CSS_Property.isStringKey)("background-repeat"));
   var backgroundPosition = CSS_Stylesheet.key(valBackgroundPosition)(CSS_String.fromString(CSS_Property.isStringKey)("background-position"));              
   var backgroundImage = CSS_Stylesheet.key(valBackgroundImage)(CSS_String.fromString(CSS_Property.isStringKey)("background-image"));
+  var backgroundColor$prime = {
+      background: CSS_Stylesheet.key(CSS_Property.valColor)(CSS_String.fromString(CSS_Property.isStringKey)("background")),
+      Val0: function () {
+          return CSS_Property.valColor;
+      }
+  };
   var backgroundColor = CSS_Stylesheet.key(CSS_Property.valColor)(CSS_String.fromString(CSS_Property.isStringKey)("background-color"));
   var backgroundBackgroundImage = {
       background: CSS_Stylesheet.key(valBackgroundImage)(CSS_String.fromString(CSS_Property.isStringKey)("background")),
@@ -2538,13 +2541,12 @@ var PS = {};
   exports["backgroundColor"] = backgroundColor;
   exports["backgroundPosition"] = backgroundPosition;
   exports["placed"] = placed;
-  exports["backgroundSize"] = backgroundSize;
-  exports["cover"] = cover;
   exports["backgroundRepeat"] = backgroundRepeat;
   exports["noRepeat"] = noRepeat;
   exports["backgroundImage"] = backgroundImage;
   exports["url"] = url;
   exports["sideCenter"] = sideCenter;
+  exports["backgroundColor'"] = backgroundColor$prime;
   exports["backgroundBackgroundImage"] = backgroundBackgroundImage;
 })(PS);
 (function($PS) {
@@ -3015,15 +3017,23 @@ var PS = {};
       value: function (v) {
           return v;
       }
-  };                                                                                     
+  };                                                                              
+  var relative = Position(CSS_String.fromString(CSS_Property.isStringValue)("relative"));
   var position = CSS_Stylesheet.key(valPosition)(CSS_String.fromString(CSS_Property.isStringKey)("position"));
+  var opacity = CSS_Stylesheet.key(CSS_Property.valNumber)(CSS_String.fromString(CSS_Property.isStringKey)("opacity"));
+  var inlineBlock = Display(CSS_String.fromString(CSS_Property.isStringValue)("inline-block"));        
   var flex = Display(CSS_String.fromString(CSS_Property.isStringValue)("flex"));
   var fixed = Position(CSS_String.fromString(CSS_Property.isStringValue)("fixed"));          
   var display = CSS_Stylesheet.key(valDisplay)(CSS_String.fromString(CSS_Property.isStringKey)("display"));
+  var absolute = Position(CSS_String.fromString(CSS_Property.isStringValue)("absolute"));
   exports["position"] = position;
+  exports["absolute"] = absolute;
   exports["fixed"] = fixed;
+  exports["relative"] = relative;
+  exports["inlineBlock"] = inlineBlock;
   exports["flex"] = flex;
   exports["display"] = display;
+  exports["opacity"] = opacity;
 })(PS);
 (function(exports) {
   "use strict";
@@ -4090,6 +4100,12 @@ var PS = {};
       })()
   };
   var flexWrap = CSS_Stylesheet.key(valFlexWrap)(CSS_String.fromString(CSS_Property.isStringKey)("flex-wrap"));
+  var flexStartJustifyContentValue = {
+      flexStart: CSS_String.fromString(isStringJustifyContentValue)("flex-start")
+  };
+  var flexStart = function (dict) {
+      return dict.flexStart;
+  };
   var flexShrink = function (i) {
       return CSS_Stylesheet.key(CSS_Property.valValue)(CSS_String.fromString(CSS_Property.isStringKey)("flex-shrink"))(CSS_String.fromString(CSS_Property.isStringValue)(Data_Show.show(Data_Show.showNumber)(i)));
   };
@@ -4097,13 +4113,11 @@ var PS = {};
       return CSS_Stylesheet.key(CSS_Property.valValue)(CSS_String.fromString(CSS_Property.isStringKey)("flex-grow"))(CSS_String.fromString(CSS_Property.isStringValue)(Data_Show.show(Data_Show.showNumber)(i)));
   };                                                                                                                          
   var flexBasis = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("flex-basis"));
-  var centerJustifyContentValue = {
-      center: CSS_String.fromString(isStringJustifyContentValue)("center")
-  };
   var centerAlignItemsValue = {
       center: CSS_String.fromString(isStringAlignItemsValue)("center")
   };                                                                                                                   
   var alignItems = CSS_Stylesheet.key(valAlignItemsValue)(CSS_String.fromString(CSS_Property.isStringKey)("align-items"));
+  exports["flexStart"] = flexStart;
   exports["spaceBetween"] = spaceBetween;
   exports["alignItems"] = alignItems;
   exports["flexBasis"] = flexBasis;
@@ -4113,7 +4127,7 @@ var PS = {};
   exports["flexWrap"] = flexWrap;
   exports["justifyContent"] = justifyContent;
   exports["centerAlignItemsValue"] = centerAlignItemsValue;
-  exports["centerJustifyContentValue"] = centerJustifyContentValue;
+  exports["flexStartJustifyContentValue"] = flexStartJustifyContentValue;
   exports["spaceBetweenJustifyContentValue"] = spaceBetweenJustifyContentValue;
 })(PS);
 (function($PS) {
@@ -4294,21 +4308,12 @@ var PS = {};
   var GenericFontFamily = function (x) {
       return x;
   };
-  var FontWeight = function (x) {
-      return x;
-  };
   var valGenericFontFamily = {
       value: function (v) {
           return v;
       }
   };
-  var valFontWeight = {
-      value: function (v) {
-          return v;
-      }
-  };
-  var sansSerif = GenericFontFamily(CSS_String.fromString(CSS_Property.isStringValue)("sans-serif"));
-  var fontWeight = CSS_Stylesheet.key(valFontWeight)(CSS_String.fromString(CSS_Property.isStringKey)("font-weight"));
+  var sansSerif = GenericFontFamily(CSS_String.fromString(CSS_Property.isStringValue)("sans-serif"));                
   var fontSize = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("font-size"));
   var fontFamily = function (a) {
       return function (b) {
@@ -4321,13 +4326,10 @@ var PS = {};
       };
   };
   var color = CSS_Stylesheet.key(CSS_Property.valColor)(CSS_String.fromString(CSS_Property.isStringKey)("color"));
-  var bold = FontWeight(CSS_String.fromString(CSS_Property.isStringValue)("bold"));
   exports["color"] = color;
   exports["sansSerif"] = sansSerif;
   exports["fontFamily"] = fontFamily;
   exports["fontSize"] = fontSize;
-  exports["bold"] = bold;
-  exports["fontWeight"] = fontWeight;
 })(PS);
 (function($PS) {
   // Generated by purs version 0.14.4
@@ -4339,10 +4341,12 @@ var PS = {};
   var CSS_String = $PS["CSS.String"];
   var CSS_Stylesheet = $PS["CSS.Stylesheet"];                      
   var width = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("width"));
-  var top = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("top"));    
+  var top = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("top"));
+  var right = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("right"));
   var paddingTop = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-top"));
   var paddingRight = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-right"));
   var paddingLeft = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-left"));
+  var paddingBottom = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("padding-bottom"));
   var minWidth = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("min-width"));  
   var maxWidth = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("max-width"));
   var maxHeight = CSS_Stylesheet.key(CSS_Size.valSize)(CSS_String.fromString(CSS_Property.isStringKey)("max-height"));
@@ -4361,7 +4365,9 @@ var PS = {};
   exports["top"] = top;
   exports["bottom"] = bottom;
   exports["left"] = left;
+  exports["right"] = right;
   exports["paddingTop"] = paddingTop;
+  exports["paddingBottom"] = paddingBottom;
   exports["paddingLeft"] = paddingLeft;
   exports["paddingRight"] = paddingRight;
   exports["marginTop"] = marginTop;
@@ -4945,6 +4951,48 @@ var PS = {};
 (function($PS) {
   // Generated by purs version 0.14.4
   "use strict";
+  $PS["CSS.Text"] = $PS["CSS.Text"] || {};
+  var exports = $PS["CSS.Text"];
+  var CSS_Property = $PS["CSS.Property"];
+  var CSS_String = $PS["CSS.String"];
+  var CSS_Stylesheet = $PS["CSS.Stylesheet"];    
+  var TextDecoration = function (x) {
+      return x;
+  };
+  var valTextDecoration = {
+      value: function (v) {
+          return v;
+      }
+  };                                                                                             
+  var textDecoration = CSS_Stylesheet.key(valTextDecoration)(CSS_String.fromString(CSS_Property.isStringKey)("text-decoration"));
+  var noneTextDecoration = TextDecoration(CSS_String.fromString(CSS_Property.isStringValue)("none"));
+  exports["noneTextDecoration"] = noneTextDecoration;
+  exports["textDecoration"] = textDecoration;
+})(PS);
+(function($PS) {
+  // Generated by purs version 0.14.4
+  "use strict";
+  $PS["CSS.Text.Whitespace"] = $PS["CSS.Text.Whitespace"] || {};
+  var exports = $PS["CSS.Text.Whitespace"];
+  var CSS_Property = $PS["CSS.Property"];
+  var CSS_String = $PS["CSS.String"];
+  var CSS_Stylesheet = $PS["CSS.Stylesheet"];    
+  var TextWhitespace = function (x) {
+      return x;
+  };                                                                                                 
+  var whitespaceNoWrap = TextWhitespace(CSS_String.fromString(CSS_Property.isStringValue)("nowrap"));
+  var valTextWhitespace = {
+      value: function (v) {
+          return v;
+      }
+  };
+  var textWhitespace = CSS_Stylesheet.key(valTextWhitespace)(CSS_String.fromString(CSS_Property.isStringKey)("white-space"));
+  exports["whitespaceNoWrap"] = whitespaceNoWrap;
+  exports["textWhitespace"] = textWhitespace;
+})(PS);
+(function($PS) {
+  // Generated by purs version 0.14.4
+  "use strict";
   $PS["CSS.TextAlign"] = $PS["CSS.TextAlign"] || {};
   var exports = $PS["CSS.TextAlign"];
   var CSS_Property = $PS["CSS.Property"];
@@ -4962,6 +5010,17 @@ var PS = {};
   var center = TextAlign(CSS_String.fromString(CSS_Property.isStringValue)("center"));
   exports["textAlign"] = textAlign;
   exports["center"] = center;
+})(PS);
+(function($PS) {
+  // Generated by purs version 0.14.4
+  "use strict";
+  $PS["CSS.Transition"] = $PS["CSS.Transition"] || {};
+  var exports = $PS["CSS.Transition"];
+  var CSS_Property = $PS["CSS.Property"];
+  var CSS_String = $PS["CSS.String"];
+  var CSS_Stylesheet = $PS["CSS.Stylesheet"];
+  var transitionDuration = CSS_Stylesheet.key(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringKey)("transition-duration"));
+  exports["transitionDuration"] = transitionDuration;
 })(PS);
 (function($PS) {
   // Generated by purs version 0.14.4
@@ -12834,7 +12893,6 @@ var PS = {};
   exports["musicPanel"] = musicPanel;
 })(PS);
 (function($PS) {
-  // Generated by purs version 0.14.4
   "use strict";
   $PS["YukiPortfolio.Pages.Musics"] = $PS["YukiPortfolio.Pages.Musics"] || {};
   var exports = $PS["YukiPortfolio.Pages.Musics"];
@@ -12864,7 +12922,7 @@ var PS = {};
                       return Halogen_Hooks_Hook.discard(Halogen_Hooks.useLifecycleEffect(Control_Bind.discard(Control_Bind.discardUnit)(Halogen_Hooks_HookM.bindHookM)(Control_Bind.bindFlipped(Halogen_Hooks_HookM.bindHookM)(Halogen_Hooks_HookM.put(v.value1))(Control_Monad_Trans_Class.lift(Halogen_Hooks_HookM.monadTransHookM)(dictMonad)(YukiPortfolio_Classes_MusicHandler.getMusics(dictMusicHandler))))(function () {
                           return Control_Applicative.pure(Halogen_Hooks_HookM.applicativeHookM)(Data_Maybe.Nothing.value);
                       })))(function () {
-                          return Halogen_Hooks_Hook.pure(Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("musicPanels") ])(Data_Either.either(function ($8) {
+                          return Halogen_Hooks_Hook.pure(Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("musics") ])(Data_Either.either(function ($8) {
                               return Data_Array.singleton(YukiPortfolio_Parts_ErrorMessage.errorMessage($8));
                           })((function () {
                               var $9 = Data_Functor.map(Data_Functor.functorArray)(function (music) {
@@ -13078,9 +13136,10 @@ var PS = {};
   "use strict";
   $PS["YukiPortfolio.Parts.TitleBar"] = $PS["YukiPortfolio.Parts.TitleBar"] || {};
   var exports = $PS["YukiPortfolio.Parts.TitleBar"];
+  var Halogen_HTML_Core = $PS["Halogen.HTML.Core"];
   var Halogen_HTML_Elements = $PS["Halogen.HTML.Elements"];
   var Halogen_HTML_Properties = $PS["Halogen.HTML.Properties"];                
-  var titleBar = Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("titleBar") ])([ Halogen_HTML_Elements.img([ Halogen_HTML_Properties.class_("icon"), Halogen_HTML_Properties.src("./public/images/icon512_white.png") ]) ]);
+  var titleBar = Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("titleBar") ])([ Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("content") ])([ Halogen_HTML_Elements.img([ Halogen_HTML_Properties.class_("icon"), Halogen_HTML_Properties.src("./public/images/icon512_white.png") ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("yukikurage") ])([ Halogen_HTML_Core.text("YUKI WORKS") ]) ]) ]);
   exports["titleBar"] = titleBar;
 })(PS);
 (function($PS) {
@@ -13172,11 +13231,15 @@ var PS = {};
   var CSS_Font = $PS["CSS.Font"];
   var CSS_Geometry = $PS["CSS.Geometry"];
   var CSS_Media = $PS["CSS.Media"];
+  var CSS_Property = $PS["CSS.Property"];
   var CSS_Selector = $PS["CSS.Selector"];
   var CSS_Size = $PS["CSS.Size"];
   var CSS_String = $PS["CSS.String"];
   var CSS_Stylesheet = $PS["CSS.Stylesheet"];
+  var CSS_Text = $PS["CSS.Text"];
+  var CSS_Text_Whitespace = $PS["CSS.Text.Whitespace"];
   var CSS_TextAlign = $PS["CSS.TextAlign"];
+  var CSS_Transition = $PS["CSS.Transition"];
   var Color = $PS["Color"];
   var Control_Bind = $PS["Control.Bind"];
   var Control_Plus = $PS["Control.Plus"];
@@ -13184,7 +13247,10 @@ var PS = {};
   var Halogen_HTML_CSS = $PS["Halogen.HTML.CSS"];
   var Halogen_Hooks_Component = $PS["Halogen.Hooks.Component"];
   var Halogen_Hooks_Hook = $PS["Halogen.Hooks.Hook"];                
-  var style = Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("musicPanels")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxWidth(CSS_Size.px(1000.0)))(function () {
+  var yukiRed = Color.rgb(168)(35)(62);
+  var yukiGreyYellow = Color.rgb(245)(241)(231);
+  var yukiBlack = Color.rgb(20)(20)(20);
+  var style = Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("musics")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxWidth(CSS_Size.px(1000.0)))(function () {
       return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.minWidth(CSS_Size.px(250.0)))(function () {
           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Common.auto(CSS_Size.autoSize)))(function () {
               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Common.auto(CSS_Size.autoSize)))(function () {
@@ -13207,7 +13273,7 @@ var PS = {};
                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Cursor.cursor(CSS_Cursor.pointer))(function () {
                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background.backgroundBackgroundImage)(CSS_Background.url("./public/images/loading_black.gif")))(function () {
                                   return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundRepeat(CSS_Background.noRepeat))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(Color.rgb(245)(241)(231)))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiGreyYellow))(function () {
                                           return CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter));
                                       });
                                   });
@@ -13229,7 +13295,7 @@ var PS = {};
                                   return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
                                       return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
                                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(120.0)))(function () {
-                                              return CSS_Border.border(CSS_Border.solid)(CSS_Size.px(0.0))(Color.black);
+                                              return CSS_Border.border(CSS_Border.solid)(CSS_Size.px(0.0))(yukiBlack);
                                           });
                                       });
                                   });
@@ -13238,24 +13304,60 @@ var PS = {};
                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("bodyRoot")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginTop(CSS_Size.px(160.0)))(function () {
                                   return CSS_Geometry.marginBottom(CSS_Size.px(120.0));
                               })))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("navigationBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginTop(CSS_Size.px(22.0)))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginBottom(CSS_Size.px(10.0)))(function () {
-                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Courier" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
-                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontWeight(CSS_Font.bold))(function () {
-                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Common.center(CSS_Flexbox.centerJustifyContentValue)))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.a)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Size.px(20.0)))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Size.px(20.0)))(function () {
-                                                                          return CSS_Font.fontSize(CSS_Size.pct(150.0));
-                                                                      });
-                                                                  })))(function () {
-                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:link"))(CSS_Font.color(Color.black)))(function () {
-                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:visited"))(CSS_Font.color(Color.black)))(function () {
-                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover"))(CSS_Font.color(Color.rgb(168)(35)(62))))(function () {
-                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:active"))(CSS_Font.color(Color.rgb(168)(35)(62))))(function () {
-                                                                                      return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Elements.a)(CSS_Selector.byClass("nowPage")))(CSS_Font.color(Color.rgb(168)(35)(62)));
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("navigationBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiGreyYellow))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.8))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginTop(CSS_Size.px(0.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingTop(CSS_Size.px(16.0)))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.paddingBottom(CSS_Size.px(16.0)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Montserrat" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
+                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.a)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginLeft(CSS_Size.px(20.0)))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginRight(CSS_Size.px(20.0)))(function () {
+                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(150.0)))(function () {
+                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Text.textDecoration(CSS_Text.noneTextDecoration))(function () {
+                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.relative))(function () {
+                                                                                              return CSS_Display.display(CSS_Display.inlineBlock);
+                                                                                          });
+                                                                                      });
+                                                                                  });
+                                                                              });
+                                                                          })))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(2.0)))(function () {
+                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''"))(function () {
+                                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(2.0)))(function () {
+                                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background["backgroundColor'"])(yukiRed))(function () {
+                                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.0))(function () {
+                                                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("hidden"))(function () {
+                                                                                                                  return CSS_Transition.transitionDuration("0.08s");
+                                                                                                              });
+                                                                                                          });
+                                                                                                      });
+                                                                                                  });
+                                                                                              });
+                                                                                          });
+                                                                                      });
+                                                                                  });
+                                                                              })))(function () {
+                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:link"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:visited"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:hover::after"))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(1.0))(function () {
+                                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(-4.0)))(function () {
+                                                                                                      return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("visibility"))("visible");
+                                                                                                  });
+                                                                                              })))(function () {
+                                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_String.fromString(CSS_Selector.isStringSelector)("a:active"))(CSS_Font.color(yukiBlack)))(function () {
+                                                                                                      return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Elements.a)(CSS_Selector.byClass("nowPage")))(CSS_Font.color(yukiRed));
+                                                                                                  });
+                                                                                              });
+                                                                                          });
+                                                                                      });
                                                                                   });
                                                                               });
                                                                           });
@@ -13269,40 +13371,78 @@ var PS = {};
                                           });
                                       });
                                   })))(function () {
-                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(100.0)))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter)))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundImage(CSS_Background.url("./public/images/nou2_nologo.png")))(function () {
-                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundSize(CSS_Background.cover))(function () {
-                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
-                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.alignItems(CSS_Common.center(CSS_Flexbox.centerAlignItemsValue)))(function () {
-                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Common.center(CSS_Flexbox.centerJustifyContentValue)))(function () {
-                                                                      return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("icon")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(80.0)))(function () {
-                                                                          return CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize));
-                                                                      }));
-                                                                  });
-                                                              });
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.marginBottom(CSS_Size.px(0.0)))(function () {
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.px(100.0)))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundImage(CSS_Background.url("./public/images/nou2_nologo.png")))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("background-size"))("calc(max(100%, 1000px))"))(function () {
+                                                              return CSS_Display.position(CSS_Display.relative);
                                                           });
                                                       });
                                                   });
                                               });
                                           });
                                       })))(function () {
-                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("header")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.fixed))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
-                                                      return CSS_Geometry.width(CSS_Size.pct(100.0));
+                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar::before")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(yukiBlack))(function () {
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.opacity(0.8))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.right(CSS_Size.px(0.0)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.bottom(CSS_Size.px(0.0)))(function () {
+                                                                      return CSS_Stylesheet.prefixed(CSS_Property.valString)(CSS_String.fromString(CSS_Property.isStringPrefixed)("content"))("''");
+                                                                  });
+                                                              });
+                                                          });
+                                                      });
                                                   });
                                               });
                                           })))(function () {
-                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.main)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexGrow(1.0))(function () {
-                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexShrink(1.0))(function () {
-                                                      return CSS_Flexbox.flexBasis(CSS_Size.px(0.0));
+                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("titleBar")))(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("content")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.display(CSS_Display.flex))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.alignItems(CSS_Common.center(CSS_Flexbox.centerAlignItemsValue)))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.justifyContent(CSS_Flexbox.flexStart(CSS_Flexbox.flexStartJustifyContentValue)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.absolute))(function () {
+                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Size.pct(100.0)))(function () {
+                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("icon")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(70.0)))(function () {
+                                                                          return CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize));
+                                                                      })))(function () {
+                                                                          return CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("yukikurage")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(60.0)))(function () {
+                                                                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                                                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontFamily([ "Big Shoulders Display" ])(Data_NonEmpty.singleton(Control_Plus.plusArray)(CSS_Font.sansSerif)))(function () {
+                                                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.color(Color.white))(function () {
+                                                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Font.fontSize(CSS_Size.pct(250.0)))(function () {
+                                                                                              return CSS_Text_Whitespace.textWhitespace(CSS_Text_Whitespace.whitespaceNoWrap);
+                                                                                          });
+                                                                                      });
+                                                                                  });
+                                                                              });
+                                                                          }));
+                                                                      });
+                                                                  });
+                                                              });
+                                                          });
+                                                      });
                                                   });
-                                              })))(function () {
-                                                  return CSS_Stylesheet.select(CSS_Elements.footer)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                                                      return CSS_Geometry.marginTop(CSS_Common.auto(CSS_Size.autoSize));
-                                                  }));
+                                              }))))(function () {
+                                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("header")))(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Display.position(CSS_Display.fixed))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.left(CSS_Size.px(0.0)))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.top(CSS_Size.px(0.0)))(function () {
+                                                              return CSS_Geometry.width(CSS_Size.pct(100.0));
+                                                          });
+                                                      });
+                                                  })))(function () {
+                                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Elements.main)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexGrow(1.0))(function () {
+                                                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Flexbox.flexShrink(1.0))(function () {
+                                                              return CSS_Flexbox.flexBasis(CSS_Size.px(0.0));
+                                                          });
+                                                      })))(function () {
+                                                          return CSS_Stylesheet.select(CSS_Elements.footer)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                                                              return CSS_Geometry.marginTop(CSS_Common.auto(CSS_Size.autoSize));
+                                                          }));
+                                                      });
+                                                  });
                                               });
                                           });
                                       });
