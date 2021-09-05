@@ -28,6 +28,7 @@ to generate this file without the comments in this block.
   , "psci-support"
   , "routing"
   , "safe-coerce"
+  , "transformers"
   , "tuples"
   , "web-dom"
   , "web-events"

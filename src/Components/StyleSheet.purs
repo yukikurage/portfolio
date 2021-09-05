@@ -1,20 +1,23 @@
 module YukiPortfolio.Components.StyleSheet where
 
-import Prelude
+import Prelude hiding (top, bottom)
 
-import CSS (Abs, AnimationName(..), CSS, Color, Display(..), GenericFontFamily(..), Size, a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderBox, borderRadius, bottom, boxSizing, byClass, color, column, cursor, display, ease, fixed, flex, flexFlow, flexGrow, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, nowrap, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transform, transitionDuration, url, value, vh, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
+import CSS (AnimationName(..), CSS, Color, Display(..), GenericFontFamily(..), a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderBox, borderRadius, bottom, boxSizing, byClass, color, column, cursor, display, ease, fixed, flex, flexFlow, flexGrow, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, nowrap, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transform, transitionDuration, url, value, vh, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
-import CSS.Overflow (hidden, overflow)
 import CSS.TextAlign (center, leftTextAlign, startTextAlign, textAlign)
 import CSS.Transform (scale)
 import Data.NonEmpty as NonEmpty
 import Halogen as H
 import Halogen.HTML.CSS as HC
 import Halogen.Hooks as Hooks
+
+component :: forall query input output m. H.Component query input output m
+component = Hooks.component \_ _ -> Hooks.do
+  Hooks.pure $ HC.stylesheet style
 
 yukiRed :: Color
 yukiRed = rgb 168 35 62
@@ -106,16 +109,20 @@ musicPageStyle = do
   star & byClass "musicPanel" ? do
     width $ pct $ 100.0 / 4.0
     textAlign center
+    star & byClass "imgWrapper" ? do
+      height auto
+      width auto
+      background $ url "./public/images/loading_black.gif"
+      backgroundRepeat $ noRepeat
+      backgroundColor $ yukiGreyYellow 1.0
+      backgroundPosition $ placed sideCenter sideCenter
     img ? do
       height auto
       width $ pct 100.0
       maxHeight $ pct 100.0
       cursor pointer
-      background $ url "./public/images/loading_black.gif"
-      backgroundRepeat $ noRepeat
-      backgroundColor $ yukiGreyYellow 1.0
-      backgroundPosition $ placed sideCenter sideCenter
-      fadeIn "musicPanel"
+      transitionDuration "0.3s"
+
   star & byClass "musicPanelInner" ? do
     paddingLeft $ px 6.0
     paddingRight $ px 6.0
@@ -272,7 +279,3 @@ style = do
     color yukiBlack
     paddingBottom $ px 120.0
     paddingLeft $ px 20.0
-
-component :: forall query input output m. H.Component query input output m
-component = Hooks.component \_ _ -> Hooks.do
-  Hooks.pure $ HC.stylesheet style

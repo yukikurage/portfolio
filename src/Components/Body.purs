@@ -5,6 +5,7 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
 import Effect.Class (class MonadEffect, liftEffect)
+import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
@@ -31,10 +32,14 @@ component :: forall query input output m. MusicHandler m
 component = Hooks.component \_ _ -> Hooks.do
   nowPlaying /\ nowPlayingId <- Hooks.useState NotPlaying
   nowPage /\ nowPageId <- Hooks.useState NotFound
+
   musicsPage <- useMusicsPage nowPlayingId
 
   Hooks.useLifecycleEffect do
     Hooks.put nowPageId <<< hashToPage =<< liftEffect getHash
+
+    log =<< liftEffect getHash
+
     subscription <- subscribeToHashChange (Hooks.put nowPageId)
     pure $ Just $ Hooks.unsubscribe subscription
 

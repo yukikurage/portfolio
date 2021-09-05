@@ -6,4 +6,4 @@ import YukiPortfolio.Types.Contents.Music (Music)
 
 class
   Monad m <= MusicHandler m where
-  getMusics :: m (Either String (Array Music))
+  getMusics :: m (Array Music)

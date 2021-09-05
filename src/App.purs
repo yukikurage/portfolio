@@ -29,7 +29,7 @@ runApp :: forall q i o m. Monad m => H.Component q i o App -> Aff (H.Component q
 runApp = pure <<< coerce
 
 instance MusicHandler App where
-  getMusics = pure $ Right $ Musics.musics
+  getMusics = pure $ Musics.musics
 
 instance NavigationHandler App where
   navigate = liftEffect <<< setHash <<< pageToHash
