@@ -2,13 +2,15 @@ module YukiPortfolio.Components.StyleSheet where
 
 import Prelude
 
-import CSS (AnimationName(..), CSS, Color, GenericFontFamily(..), a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderRadius, bottom, byClass, color, column, cursor, display, ease, fixed, flex, flexFlow, flexGrow, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, nowrap, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transitionDuration, url, value, vh, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
+import CSS (Abs, AnimationName(..), CSS, Color, Display(..), GenericFontFamily(..), Size, a, absolute, alignItems, animation, background, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, block, border, borderBox, borderRadius, bottom, boxSizing, byClass, color, column, cursor, display, ease, fixed, flex, flexFlow, flexGrow, flexStart, flexWrap, fontFamily, fontSize, forwards, fromString, height, img, inlineBlock, iterationCount, justifyContent, keyframesFromTo, left, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minHeight, minWidth, noRepeat, noneTextDecoration, normalAnimationDirection, nowrap, opacity, p, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, placed, position, prefixed, px, query, relative, rgb, rgba, right, sansSerif, sec, sideCenter, solid, spaceAround, spaceBetween, star, textDecoration, textWhitespace, top, transform, transitionDuration, url, value, vh, white, whitespaceNoWrap, width, wrap, zIndex, (&), (?))
 import CSS.Common (auto)
 import CSS.Common as Common
 import CSS.Cursor (pointer)
 import CSS.Media (screen)
 import CSS.Media as CMedia
+import CSS.Overflow (hidden, overflow)
 import CSS.TextAlign (center, leftTextAlign, startTextAlign, textAlign)
+import CSS.Transform (scale)
 import Data.NonEmpty as NonEmpty
 import Halogen as H
 import Halogen.HTML.CSS as HC
@@ -26,8 +28,14 @@ yukiBlack = rgb 50 50 50
 fadeIn :: String -> CSS
 fadeIn id = do
   keyframesFromTo ("fadeIn" <> id)
-    do opacity 0.0
-    do opacity 1.0
+    do
+      position relative
+      top $ px $ - 5.0
+      opacity 0.0
+    do
+      position relative
+      top $ px 0.0
+      opacity 1.0
   animation
     (AnimationName $ value $ "fadeIn" <> id)
     (sec 0.2)
@@ -107,6 +115,7 @@ musicPageStyle = do
       backgroundRepeat $ noRepeat
       backgroundColor $ yukiGreyYellow 1.0
       backgroundPosition $ placed sideCenter sideCenter
+      fadeIn "musicPanel"
   star & byClass "musicPanelInner" ? do
     paddingLeft $ px 6.0
     paddingRight $ px 6.0
@@ -133,20 +142,18 @@ style = do
     height $ px 120.0
     border solid (px 0.0) yukiBlack
     zIndex 90
+
   star & byClass "navigationBar" ? do
     backgroundColor $ yukiGreyYellow 0.8
     display flex
-    marginLeft auto
-    marginRight auto
-    marginTop $ px 0.0
-    paddingTop $ px 16.0
-    paddingBottom $ px 16.0
+    paddingTop $ px 10.0
+    paddingBottom $ px 10.0
+    paddingLeft $ px 20.0
     fontFamily ["Montserrat"] $ NonEmpty.singleton sansSerif
     justifyContent $ flexStart
     a ? do
-      marginLeft $ px 20.0
-      marginRight $ px 20.0
-      fontSize $ pct 150.0
+      marginRight $ px 24.0
+      fontSize $ pct 140.0
       textDecoration $ noneTextDecoration
       position relative
       display inlineBlock
@@ -176,15 +183,18 @@ style = do
       color yukiBlack
     a & byClass "nowPage" ? do
       color yukiRed
+
   star & byClass "titleBar" ? do
-    marginBottom $ px 0.0
     width $ pct 100.0
     height $ px 60.0
     paddingLeft $ px 20.0
+    paddingRight $ px 20.0
     backgroundPosition $ placed sideCenter sideCenter
     backgroundImage $ url "./public/images/nou2_nologo.png"
     prefixed (fromString "background-size") "calc(max(100%, 1000px))"
     position relative
+    boxSizing borderBox
+
   star & byClass "titleBar::before" ? do
     backgroundColor yukiBlack
     opacity 0.8
@@ -194,12 +204,13 @@ style = do
     right $ px 0.0
     bottom $ px 0.0
     prefixed (fromString "content") "''"
+
   star & byClass "titleBar" ? do
     star & byClass "content" ? do
       display flex
       alignItems Common.center
       justifyContent flexStart
-      position absolute
+      position relative
       width $ pct 100.0
       height $ pct 100.0
       star & byClass "icon" ? do
@@ -213,6 +224,19 @@ style = do
         color white
         fontSize $ pct 250.0
         textWhitespace whitespaceNoWrap
+        flexGrow $ 1.0
+      star & byClass "socialIconLink" ? do
+        display $ Display $ value "contents"
+        textDecoration $ noneTextDecoration
+      star & byClass "socialIcon" ? do
+        width $ px 80.0
+        color white
+        fontSize $ pct 180.0
+        textAlign $ center
+        cursor pointer
+        transitionDuration "0.1s"
+      fromString ".socialIcon:hover" ? do
+        transform $ scale 1.1 1.1
 
   star & byClass "bodyRoot" ? do
     fontFamily ["Meiryo","メイリオ","Verdana"] $ NonEmpty.singleton sansSerif
@@ -236,9 +260,11 @@ style = do
     minHeight $ vh 100.0
 
   star & byClass "main" ? do
-    paddingTop $ px 160.0
+    paddingTop $ px 130.0
     flexGrow 1.0
-    marginBottom $ px 100.0
+    paddingBottom $ px 130.0
+    paddingLeft $ px 15.0
+    paddingRight $ px 15.0
 
   star & byClass "footer" ? do
     zIndex 80

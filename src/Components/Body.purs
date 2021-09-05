@@ -43,8 +43,8 @@ component = Hooks.component \_ _ -> Hooks.do
       [ HH.div [HP.class_ $ H.ClassName "header"]
         [ titleBar
         , navigationBar [About, Musics, Pictures, WebApps] nowPage
-        , musicPlayer nowPlaying
         ]
+      , musicPlayer nowPlaying
       ]
     , HH.div [HP.class_ $ H.ClassName "dynamic"]
       [ HH.div [HP.class_ $ H.ClassName "main"]
