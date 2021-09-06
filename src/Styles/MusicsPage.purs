@@ -7,6 +7,7 @@ import CSS.Common (auto)
 import CSS.Cursor as Cursor
 import CSS.Media as Media
 import CSS.TextAlign as TextAlign
+import CSS.VerticalAlign as VerticalAlign
 import Data.NonEmpty (singleton)
 import YukiPortfolio.Styles.Common (fadeIn, yukiColors)
 
@@ -33,6 +34,7 @@ style = do
         maxHeight $ pct 100.0
         cursor Cursor.pointer
         transitionDuration "0.3s"
+        VerticalAlign.verticalAlign VerticalAlign.Top
     query Media.screen (singleton $ Media.maxWidth $ px 1000.0) do
       star & byClass "musicPanel" ? do
         width $ pct $ 100.0 / 3.0

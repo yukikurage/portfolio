@@ -62,5 +62,9 @@ style = do
         TextAlign.textAlign $ TextAlign.center
         cursor Cursor.pointer
         transitionDuration "0.1s"
+        display flex
+        alignItems center
+        justifyContent center
+        height $ pct 100.0
       fromString ".socialIcon:hover" ? do
         transform $ scale 1.1 1.1

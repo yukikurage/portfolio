@@ -32,6 +32,10 @@ style = do
     width $ pct 100.0
 
   star & byClass "static" ? do
+    position fixed
+    left $ px 0.0
+    top $ px 0.0
+    width $ pct 100.0
     zIndex 100
 
   star & byClass "dynamic" ? do
