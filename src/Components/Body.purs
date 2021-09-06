@@ -6,7 +6,6 @@ import Data.Tuple.Nested ((/\))
 import Effect.Class (class MonadEffect)
 import Halogen as H
 import Halogen.HTML as HH
-import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Type.Proxy (Proxy(..))
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)

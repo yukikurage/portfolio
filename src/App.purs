@@ -2,7 +2,6 @@ module YukiPortfolio.App where
 
 import Prelude
 
-import Data.Either (Either(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff)
 import Effect.Class (class MonadEffect, liftEffect)

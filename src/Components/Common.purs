@@ -1,6 +1,7 @@
 module YukiPortfolio.Components.Common where
 
 import Prelude
+
 import Halogen as H
 import Halogen.HTML.Properties as HP
 
