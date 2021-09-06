@@ -1,4 +1,4 @@
-module YukiPortfolio.Documents.Musics where
+module YukiPortfolio.Contents.Musics where
 
 import Prelude
 

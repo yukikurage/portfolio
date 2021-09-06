@@ -1,4 +1,4 @@
-module YukiPortfolio.Pages.NotFound where
+module YukiPortfolio.Components.Pages.NotFound where
 
 import Halogen.HTML (HTML)
 import YukiPortfolio.Components.HTML.ErrorMessage (errorMessage)

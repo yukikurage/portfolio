@@ -11,7 +11,7 @@ import Routing.Hash (setHash)
 import Safe.Coerce (coerce)
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Classes.NavigationHandler (class NavigationHandler)
-import YukiPortfolio.Documents.Musics as Musics
+import YukiPortfolio.Contents.Musics as Musics
 import YukiPortfolio.Data.Pages (pageToHash)
 
 newtype App a
