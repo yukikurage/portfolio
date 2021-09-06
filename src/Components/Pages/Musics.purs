@@ -1,16 +1,17 @@
 module YukiPortfolio.Components.Pages.Musics where
 
 import Prelude
+
 import Data.Array (mapWithIndex, replicate)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
 import Halogen (lift)
 import Halogen as H
 import Halogen.HTML as HH
-import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Type.Proxy (Proxy(..))
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler, getMusics)
+import YukiPortfolio.Components.Common (css)
 import YukiPortfolio.Components.MusicPanel as MusicPanel
 import YukiPortfolio.Data.Music (Music)
 
@@ -29,9 +30,9 @@ component = Hooks.component \tokens _ -> Hooks.do
     Hooks.put musicsId =<< lift getMusics
     pure Nothing
 
-  Hooks.pure $ HH.div [ HP.class_ $ H.ClassName "musics"] $ mapWithIndex
+  Hooks.pure $ HH.div [ css "musics"] $ mapWithIndex
     (\i music -> HH.slot _musicPanel i MusicPanel.component {music: music} $ case _ of
       MusicPanel.Play -> Hooks.raise tokens.outputToken $ Play music
     ) musics <> dummies
   where
-    dummies = replicate 4 $ HH.div [ HP.class_ $ H.ClassName "musicPanel" ] [HH.text ""]
+    dummies = replicate 4 $ HH.div [ css "musicPanel" ] [HH.text ""]
