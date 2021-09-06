@@ -11,6 +11,7 @@ import Safe.Coerce (coerce)
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Classes.NavigationHandler (class NavigationHandler)
 import YukiPortfolio.Contents.Musics as Musics
+import YukiPortfolio.Contents.Pictures as Pictures
 import YukiPortfolio.Data.Pages (pageToHash)
 
 newtype App a
@@ -32,3 +33,6 @@ instance MusicHandler App where
 
 instance NavigationHandler App where
   navigate = liftEffect <<< setHash <<< pageToHash
+
+instance PicturesHandler App where
+  getPictures = pure $ Pictures.pictures
