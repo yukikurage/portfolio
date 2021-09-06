@@ -3,8 +3,7 @@ module YukiPortfolio.Pages.Musics where
 
 import Prelude
 
-import Data.Array (index, mapWithIndex, replicate, singleton, updateAt)
-import Data.Either (Either(..), either)
+import Data.Array (index, mapWithIndex, replicate, updateAt)
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Tuple.Nested ((/\))
 import Effect.Class (class MonadEffect)
@@ -16,8 +15,6 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler, getMusics)
-import YukiPortfolio.Components.HTML.ErrorMessage as ErrorMessage
-import YukiPortfolio.Components.MusicPanel as MusicPanel
 import YukiPortfolio.Data.Music (Music(..))
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 

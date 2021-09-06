@@ -9,7 +9,7 @@ import Halogen.VDom.Driver (runUI)
 import Web.DOM.ParentNode (QuerySelector(..))
 import YukiPortfolio.App (runApp)
 import YukiPortfolio.Components.Body as Body
-import YukiPortfolio.Components.StyleSheet as StyleSheet
+import YukiPortfolio.Styles.StyleSheet as StyleSheet
 
 main :: Effect Unit
 main =
