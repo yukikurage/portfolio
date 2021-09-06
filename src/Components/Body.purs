@@ -12,19 +12,22 @@ import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Halogen.Query.Event as HQE
 import Routing.Hash (getHash)
+import Type.Proxy (Proxy(..))
 import Web.Event.Event (EventType(..))
 import Web.HTML as HTML
 import Web.HTML.Window as Window
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
-import YukiPortfolio.Pages.About (about)
-import YukiPortfolio.Pages.Musics (useMusicsPage)
-import YukiPortfolio.Pages.NotFound (notFound)
 import YukiPortfolio.Components.HTML.Copyright (copyright)
 import YukiPortfolio.Components.HTML.MusicPlayer (musicPlayer)
 import YukiPortfolio.Components.HTML.NavigationBar (navigationBar)
 import YukiPortfolio.Components.HTML.TitleBar (titleBar)
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 import YukiPortfolio.Data.Pages (Pages(..), hashToPage)
+import YukiPortfolio.Pages.About (about)
+import YukiPortfolio.Pages.Musics as Musics
+import YukiPortfolio.Pages.NotFound (notFound)
+
+_page = Proxy :: Proxy "page"
 
 component :: forall query input output m. MusicHandler m
   => MonadEffect m
@@ -32,8 +35,6 @@ component :: forall query input output m. MusicHandler m
 component = Hooks.component \_ _ -> Hooks.do
   nowPlaying /\ nowPlayingId <- Hooks.useState NotPlaying
   nowPage /\ nowPageId <- Hooks.useState NotFound
-
-  musicsPage <- useMusicsPage nowPlayingId
 
   Hooks.useLifecycleEffect do
     Hooks.put nowPageId <<< hashToPage =<< liftEffect getHash
@@ -54,7 +55,8 @@ component = Hooks.component \_ _ -> Hooks.do
     , HH.div [HP.class_ $ H.ClassName "dynamic"]
       [ HH.div [HP.class_ $ H.ClassName "main"]
         [ case nowPage of
-            Musics -> musicsPage
+            Musics -> HH.slot _page "musics" Musics.component unit $ case _ of
+              Musics.Play music -> Hooks.put nowPlayingId $ Playing music
             About -> about
             Pictures -> HH.div_ []
             WebApps -> HH.div_ []
