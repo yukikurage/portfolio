@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.MusicsPage where
 
 import Prelude
 
-import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, marginLeft, marginRight, maxHeight, maxWidth, minWidth, noRepeat, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
+import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, marginLeft, marginRight, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.Cursor as Cursor
 import CSS.Media as Media
@@ -28,6 +28,9 @@ style = do
         backgroundRepeat $ noRepeat
         backgroundColor $ yukiColors.greyYellow
         backgroundPosition $ placed sideCenter sideCenter
+        transitionDuration "0.1s"
+      star & byClass "imgWrapper:hover" ? do
+        opacity 0.7
       img ? do
         height auto
         width $ pct 100.0

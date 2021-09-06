@@ -14417,23 +14417,27 @@ var PS = {};
                       return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.background(CSS_Background.backgroundBackgroundImage)(CSS_Background.url("./public/images/loading_black.gif")))(function () {
                           return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundRepeat(CSS_Background.noRepeat))(function () {
                               return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundColor(YukiPortfolio_Styles_Common.yukiColors.greyYellow))(function () {
-                                  return CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter));
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Background.backgroundPosition(CSS_Background.placed(CSS_Background.sideCenter)(CSS_Background.sideCenter)))(function () {
+                                      return CSS_Transition.transitionDuration("0.1s");
+                                  });
                               });
                           });
                       });
                   });
               })))(function () {
-                  return CSS_Stylesheet.select(CSS_Elements.img)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Common.auto(CSS_Size.autoSize)))(function () {
-                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
-                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(100.0)))(function () {
-                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Cursor.cursor(CSS_Cursor.pointer))(function () {
-                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Transition.transitionDuration("0.3s"))(function () {
-                                      return CSS_VerticalAlign.verticalAlign(CSS_VerticalAlign.Top.value);
+                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Stylesheet.select(CSS_Selector["with"](CSS_Selector.star)(CSS_Selector.byClass("imgWrapper:hover")))(CSS_Display.opacity(0.7)))(function () {
+                      return CSS_Stylesheet.select(CSS_Elements.img)(Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.height(CSS_Common.auto(CSS_Size.autoSize)))(function () {
+                          return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.width(CSS_Size.pct(100.0)))(function () {
+                              return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Geometry.maxHeight(CSS_Size.pct(100.0)))(function () {
+                                  return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Cursor.cursor(CSS_Cursor.pointer))(function () {
+                                      return Control_Bind.discard(Control_Bind.discardUnit)(CSS_Stylesheet.bindStyleM)(CSS_Transition.transitionDuration("0.3s"))(function () {
+                                          return CSS_VerticalAlign.verticalAlign(CSS_VerticalAlign.Top.value);
+                                      });
                                   });
                               });
                           });
-                      });
-                  }));
+                      }));
+                  });
               });
           });
       })))(function () {

@@ -1,12 +1,14 @@
 module YukiPortfolio.Components.Pages.About where
 
-
+import Prelude
+import Halogen as H
 import Halogen.HTML as HH
+import Halogen.Hooks as Hooks
 import Halogen.HTML.Properties as HP
 import YukiPortfolio.Components.Common (css)
 
-about :: forall w i. HH.HTML w i
-about = HH.div [css "about"]
+component :: forall q i o m. H.Component q i o m
+component = Hooks.component \_ _ -> Hooks.pure $ HH.div [css "about"]
   [ HH.img [css "yukiIcon", HP.src "./public/images/yuki_icon1.png", HP.width 80, HP.height 80]
   , HH.h2_ [HH.text "ゆきくらげ / Yukikurage"]
   , HH.div [css "mainContents"]

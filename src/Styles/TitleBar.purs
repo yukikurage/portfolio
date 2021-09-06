@@ -56,7 +56,7 @@ style = do
         display $ Display $ value "contents"
         textDecoration $ noneTextDecoration
       star & byClass "socialIcon" ? do
-        width $ px 80.0
+        width $ px 70.0
         color white
         fontSize $ pct 180.0
         TextAlign.textAlign $ TextAlign.center

@@ -14,9 +14,9 @@ import YukiPortfolio.Components.HTML.Copyright (copyright)
 import YukiPortfolio.Components.HTML.MusicPlayer (musicPlayer)
 import YukiPortfolio.Components.HTML.NavigationBar (navigationBar)
 import YukiPortfolio.Components.HTML.TitleBar (titleBar)
-import YukiPortfolio.Components.Pages.About (about)
+import YukiPortfolio.Components.Pages.About  as About
 import YukiPortfolio.Components.Pages.Musics as Musics
-import YukiPortfolio.Components.Pages.NotFound (notFound)
+import YukiPortfolio.Components.Pages.NotFound as NotFound
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 import YukiPortfolio.Data.Pages (Pages(..))
 import YukiPortfolio.Hooks.UseHash (useHash)
@@ -41,12 +41,12 @@ component = Hooks.component \_ _ -> Hooks.do
     , HH.div [css "dynamic"]
       [ HH.div [css "main"]
         [ case nowPage of
-            Musics -> HH.slot _page "musics" Musics.component unit $ case _ of
+            Musics -> HH.slot _page "Musics" Musics.component unit $ case _ of
               Musics.Play music -> Hooks.put nowPlayingId $ Playing music
-            About -> about
+            About -> HH.slot_ _page "About" About.component unit
             Pictures -> HH.div_ []
             WebApps -> HH.div_ []
-            NotFound -> notFound
+            NotFound -> HH.slot_ _page "NotFound" NotFound.component unit
         ]
       , HH.div [css "footer"] [copyright]
       ]
