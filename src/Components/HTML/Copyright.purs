@@ -1,9 +1,7 @@
 module YukiPortfolio.Components.HTML.Copyright where
 
-import Prelude
-
-import Halogen.HTML (ClassName(..), HTML, p, text)
-import Halogen.HTML.Properties (class_)
+import Halogen.HTML (HTML, p, text)
+import YukiPortfolio.Components.Common (css)
 
 copyright :: forall w i. HTML w i
-copyright = p [class_ $ ClassName "copyright"] [text "©︎ 2021-2021 ゆきくらげ"]
+copyright = p [css "copyright"] [text "©︎ 2021-2021 ゆきくらげ"]

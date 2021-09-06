@@ -9,6 +9,7 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Halogen.Hooks.Hook (type (<>))
+import YukiPortfolio.Components.Common (css)
 import YukiPortfolio.Data.Music (Music(..))
 
 type UseMusicPanel = (Hooks.UseState Boolean) <> Hooks.Pure
@@ -25,9 +26,9 @@ component = Hooks.component \tokens input -> Hooks.do
 
   let Music musicRecord = input.music
 
-  Hooks.pure $ HH.div [HP.class_ $ HH.ClassName "musicPanel"]
+  Hooks.pure $ HH.div [css "musicPanel"]
     [ HH.div
-      [ HP.class_ $ HH.ClassName "musicPanelInner"
+      [ css "musicPanelInner"
       , HE.onClick (\_ -> Hooks.raise tokens.outputToken $ Play)]
       [ HH.div [HP.class_ $ H.ClassName "imgWrapper"]
         [ HH.img
