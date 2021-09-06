@@ -24,7 +24,7 @@ style = do
       star & byClass "imgWrapper" ? do
         height auto
         width auto
-        background $ url "./public/images/loading_black.gif"
+        -- background $ url "./public/images/loading_black.gif"
         backgroundRepeat $ noRepeat
         backgroundColor $ yukiColors.greyYellow
         backgroundPosition $ placed sideCenter sideCenter
