@@ -8,12 +8,9 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
-import Halogen.Hooks.Hook (type (<>))
 import YukiPortfolio.Components.Common (css)
 import YukiPortfolio.Data.Music (Music(..))
 
-type UseMusicPanel = (Hooks.UseState Boolean) <> Hooks.Pure
-type UseMusicPanels = (Hooks.UseState (Array Boolean)) <> Hooks.Pure
 type Input =
   { music :: Music
   }
