@@ -1,4 +1,4 @@
-module YukiPortfolio.Components.MusicPanel where
+module YukiPortfolio.Components.PicturePanel where
 
 import Prelude
 
@@ -9,28 +9,29 @@ import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Type.Proxy (Proxy(..))
 import YukiPortfolio.Components.Common (css)
-import YukiPortfolio.Data.Music (Music(..))
 import YukiPortfolio.Components.ImageLoader as ImageLoader
+import YukiPortfolio.Data.Picture (Picture(..))
 
 image_ = Proxy :: Proxy "image"
 
 type Input =
-  { music :: Music
+  { picture :: Picture
   }
 
-data Output = Play
+data Output = ClickPic
 
 component :: forall q m. H.Component q Input Output m
 component = Hooks.component \tokens input -> Hooks.do
-  let Music musicRecord = input.music
+  let Picture pictureRecord = input.picture
 
-  Hooks.pure $ HH.div [css "musicPanel"]
+  Hooks.pure $ HH.div [css "picturePanel"]
     [ HH.div
-      [ css "musicPanelInner"
-      , HE.onClick (\_ -> Hooks.raise tokens.outputToken $ Play)]
+      [ css "picturePanelInner"
+      , HE.onClick (\_ -> Hooks.raise tokens.outputToken $ ClickPic)]
       [ HH.div [HP.class_ $ H.ClassName "imgWrapper"]
-        [ HH.slot_ image_ unit ImageLoader.component {width: 200, height: 200, src: musicRecord.thumbnail} ]
-      , HH.h4_ [HH.text musicRecord.title]
-      , HH.p_ [HH.text musicRecord.description]
+        [ HH.slot_ image_ unit ImageLoader.component
+          { width: pictureRecord.width
+          , height: pictureRecord.height
+          , src: pictureRecord.src} ]
       ]
     ]

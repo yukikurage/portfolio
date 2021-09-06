@@ -2,13 +2,12 @@ module YukiPortfolio.Styles.TitleBar where
 
 import Prelude hiding (top, bottom)
 
-import CSS (CSS, Display(..), absolute, alignItems, backgroundColor, backgroundImage, backgroundPosition, borderBox, bottom, boxSizing, byClass, color, cursor, display, flex, flexGrow, flexStart, fontFamily, fontSize, fromString, height, justifyContent, left, maxHeight, noneTextDecoration, opacity, paddingLeft, paddingRight, pct, placed, position, prefixed, px, relative, right, sansSerif, sideCenter, star, textDecoration, textWhitespace, top, transform, transitionDuration, url, value, white, whitespaceNoWrap, width, (&), (?))
+import CSS (CSS, Display(..), absolute, alignItems, backgroundColor, backgroundImage, backgroundPosition, black, borderBox, bottom, boxSizing, byClass, color, cursor, display, flex, flexGrow, flexStart, fontFamily, fontSize, fromString, height, justifyContent, left, maxHeight, noneTextDecoration, opacity, paddingLeft, paddingRight, pct, placed, position, prefixed, px, relative, right, sansSerif, sideCenter, star, textDecoration, textWhitespace, top, transform, transitionDuration, url, value, white, whitespaceNoWrap, width, (&), (?))
 import CSS.Common (auto, center)
 import CSS.Cursor as Cursor
 import CSS.TextAlign as TextAlign
 import CSS.Transform (scale)
 import Data.NonEmpty (singleton)
-import YukiPortfolio.Styles.Common (yukiColors)
 
 style :: CSS
 style = do
