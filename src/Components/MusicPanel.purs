@@ -8,8 +8,12 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
+import Type.Proxy (Proxy(..))
 import YukiPortfolio.Components.Common (css)
 import YukiPortfolio.Data.Music (Music(..))
+import YukiPortfolio.Components.ImageLoader as ImageLoader
+
+image_ = Proxy :: Proxy "image"
 
 type Input =
   { music :: Music
@@ -28,14 +32,7 @@ component = Hooks.component \tokens input -> Hooks.do
       [ css "musicPanelInner"
       , HE.onClick (\_ -> Hooks.raise tokens.outputToken $ Play)]
       [ HH.div [HP.class_ $ H.ClassName "imgWrapper"]
-        [ HH.img
-          [ HP.src musicRecord.thumbnail
-          , HP.width 200
-          , HP.height 200
-          , HE.onLoad \_ -> Hooks.put isLoadId true
-          , HP.style $ if isLoad then "opacity:1" else "opacity:0"
-          ]
-        ]
+        [ HH.slot_ image_ unit ImageLoader.component {width: 200, height: 200, src: musicRecord.thumbnail} ]
       , HH.h4_ [HH.text musicRecord.title]
       , HH.p_ [HH.text musicRecord.description]
       ]

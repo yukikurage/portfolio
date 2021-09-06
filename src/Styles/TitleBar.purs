@@ -23,7 +23,7 @@ style = do
     position relative
     boxSizing borderBox
   star & byClass "titleBar::before" ? do
-    backgroundColor yukiColors.black
+    backgroundColor black
     opacity 0.8
     position absolute
     top $ px 0.0

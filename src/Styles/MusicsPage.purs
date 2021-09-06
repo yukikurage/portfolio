@@ -38,6 +38,10 @@ style = do
         cursor Cursor.pointer
         transitionDuration "0.3s"
         VerticalAlign.verticalAlign VerticalAlign.Top
+      img & byClass "loading" ? do
+        opacity 0.0
+      img & byClass "loaded" ? do
+        opacity 1.0
     query Media.screen (singleton $ Media.maxWidth $ px 1000.0) do
       star & byClass "musicPanel" ? do
         width $ pct $ 100.0 / 3.0
