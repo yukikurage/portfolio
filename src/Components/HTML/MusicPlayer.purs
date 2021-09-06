@@ -1,12 +1,12 @@
-module YukiPortfolio.Parts.MusicPlayer where
+module YukiPortfolio.Components.HTML.MusicPlayer where
 
 import Prelude
 
 import Data.Maybe (Maybe(..))
 import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
-import YukiPortfolio.Types.Contents.Music (Music(..))
-import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))
+import YukiPortfolio.Data.Music (Music(..))
+import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 
 allow :: forall r i. String -> HH.IProp (| r) i
 allow = HH.prop (HH.PropName "allow")

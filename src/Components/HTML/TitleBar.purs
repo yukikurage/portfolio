@@ -1,4 +1,4 @@
-module YukiPortfolio.Parts.TitleBar where
+module YukiPortfolio.Components.HTML.TitleBar where
 
 import Prelude hiding (div)
 

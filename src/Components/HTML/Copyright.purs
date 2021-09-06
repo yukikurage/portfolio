@@ -1,4 +1,4 @@
-module YukiPortfolio.Parts.Copyright where
+module YukiPortfolio.Components.HTML.Copyright where
 
 import Prelude
 

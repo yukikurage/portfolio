@@ -1,4 +1,4 @@
-module YukiPortfolio.Types.Pages where
+module YukiPortfolio.Data.Pages where
 
 import Prelude
 

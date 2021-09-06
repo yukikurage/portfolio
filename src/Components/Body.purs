@@ -19,12 +19,12 @@ import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Pages.About (about)
 import YukiPortfolio.Pages.Musics (useMusicsPage)
 import YukiPortfolio.Pages.NotFound (notFound)
-import YukiPortfolio.Parts.Copyright (copyright)
-import YukiPortfolio.Parts.MusicPlayer (musicPlayer)
-import YukiPortfolio.Parts.NavigationBar (navigationBar)
-import YukiPortfolio.Parts.TitleBar (titleBar)
-import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))
-import YukiPortfolio.Types.Pages (Pages(..), hashToPage)
+import YukiPortfolio.Components.HTML.Copyright (copyright)
+import YukiPortfolio.Components.HTML.MusicPlayer (musicPlayer)
+import YukiPortfolio.Components.HTML.NavigationBar (navigationBar)
+import YukiPortfolio.Components.HTML.TitleBar (titleBar)
+import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
+import YukiPortfolio.Data.Pages (Pages(..), hashToPage)
 
 component :: forall query input output m. MusicHandler m
   => MonadEffect m

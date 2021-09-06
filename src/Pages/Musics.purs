@@ -16,10 +16,10 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler, getMusics)
-import YukiPortfolio.Parts.ErrorMessage as ErrorMessage
-import YukiPortfolio.Parts.MusicPanel as MusicPanel
-import YukiPortfolio.Types.Contents.Music (Music(..))
-import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))
+import YukiPortfolio.Components.HTML.ErrorMessage as ErrorMessage
+import YukiPortfolio.Components.MusicPanel as MusicPanel
+import YukiPortfolio.Data.Music (Music(..))
+import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 
 type UseMusicsPage =
   Hooks.UseState (Array Music)

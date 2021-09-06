@@ -1,4 +1,4 @@
-module YukiPortfolio.Parts.MusicPanel where
+module YukiPortfolio.Components.MusicPanel where
 
 import Prelude
 
@@ -14,8 +14,8 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Halogen.Hooks.Hook (type (<>))
-import YukiPortfolio.Types.Contents.Music (Music(..))
-import YukiPortfolio.Types.MusicPlayerState (MusicPlayerState(..))
+import YukiPortfolio.Data.Music (Music(..))
+import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 
 type UseMusicPanel = (Hooks.UseState Boolean) <> Hooks.Pure
 type UseMusicPanels = (Hooks.UseState (Array Boolean)) <> Hooks.Pure

@@ -1,4 +1,4 @@
-module YukiPortfolio.Parts.ErrorMessage where
+module YukiPortfolio.Components.HTML.ErrorMessage where
 
 import Prelude
 

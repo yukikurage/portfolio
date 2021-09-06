@@ -1,4 +1,4 @@
-module YukiPortfolio.Types.Contents.Music where
+module YukiPortfolio.Data.Music where
 
 import Data.Maybe (Maybe)
 

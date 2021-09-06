@@ -1,9 +1,9 @@
-module YukiPortfolio.Data.Musics where
+module YukiPortfolio.Documents.Musics where
 
 import Prelude
 
 import Data.Maybe (Maybe(..))
-import YukiPortfolio.Types.Contents.Music (Music(..))
+import YukiPortfolio.Data.Music (Music(..))
 
 musics :: Array Music
 musics =
