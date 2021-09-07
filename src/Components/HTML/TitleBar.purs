@@ -11,7 +11,7 @@ titleBar =
   div [css "titleBar"]
   [ div [css "content"]
     [ img [css "icon", src "./public/images/icon512_white.png"]
-    , div [css "yukikurage"] [text "KURAGE WORKS"]
+    , div [css "yukikurage"] [text "YUKI WORKS"]
     , socialIcon "fab fa-twitter" "https://twitter.com/yukikurage_2019"
     , socialIcon "fab fa-soundcloud" "https://soundcloud.com/yukikurage"
     , socialIcon "fab fa-youtube" "https://www.youtube.com/channel/UCTGwIwjCRMpe7cmpP2EaH3w"
