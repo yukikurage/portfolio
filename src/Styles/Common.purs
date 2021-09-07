@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.Common where
 
 import Prelude hiding (top)
 
-import CSS (AnimationName(..), CSS, Color, animation, ease, forwards, iterationCount, keyframesFromTo, normalAnimationDirection, opacity, position, px, relative, rgba, sec, toRGBA, top, value)
+import CSS (AnimationName(..), CSS, Color, Size, animation, ease, forwards, iterationCount, keyframesFromTo, normalAnimationDirection, opacity, position, px, relative, rgba, sec, toRGBA, top, value)
 import Color (rgb)
 
 yukiColors :: {
@@ -21,15 +21,13 @@ changeOpacity op col = rgba ex.r ex.g ex.b op
   where
   ex = toRGBA col
 
-fadeIn :: String -> CSS
-fadeIn id = do
+fadeIn :: forall a. String -> Size a -> CSS
+fadeIn id slide = do
   keyframesFromTo ("fadeIn" <> id)
     do
-      position relative
-      top $ px $ - 5.0
+      top $ slide
       opacity 0.0
     do
-      position relative
       top $ px 0.0
       opacity 1.0
   animation

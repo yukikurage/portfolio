@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.MusicsPage where
 
 import Prelude
 
-import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, marginLeft, marginRight, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
+import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, marginLeft, marginRight, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, position, px, query, relative, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.Cursor as Cursor
 import CSS.Media as Media
@@ -52,7 +52,7 @@ style = do
       star & byClass "musicPanel" ? do
         width $ pct $ 100.0
 
-    fadeIn "musics"
+    fadeIn "musics" $ px $ - 6.0
     maxWidth $ px 1000.0
     minWidth $ px 250.0
     marginLeft auto
@@ -61,3 +61,4 @@ style = do
     display flex
     flexWrap wrap
     justifyContent spaceBetween
+    position relative

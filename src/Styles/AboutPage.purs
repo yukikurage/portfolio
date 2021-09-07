@@ -1,16 +1,17 @@
 module YukiPortfolio.Styles.AboutPage where
 
 import Prelude
-import YukiPortfolio.Styles.Common (fadeIn, yukiColors)
 
-import CSS (CSS, block, borderRadius, byClass, color, display, flex, flexWrap, height, justifyContent, marginBottom, marginLeft, marginRight, marginTop, maxWidth, minWidth, p, paddingTop, pct, px, spaceAround, star, width, wrap, (&), (?))
+import CSS (CSS, block, borderRadius, byClass, color, display, flex, flexWrap, height, justifyContent, marginBottom, marginLeft, marginRight, marginTop, maxWidth, minWidth, p, paddingTop, pct, position, px, relative, spaceAround, star, width, wrap, (&), (?))
 import CSS.Common (auto)
 import CSS.TextAlign as TextAlign
+import YukiPortfolio.Styles.Common (fadeIn, yukiColors)
 
 style :: CSS
 style = do
   star & byClass "about" ? do
-    fadeIn "about"
+    position relative
+    fadeIn "about" $ px $ - 6.0
     color yukiColors.black
     marginTop $ px 10.0
     TextAlign.textAlign TextAlign.center

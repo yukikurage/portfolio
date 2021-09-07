@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.PicturesPage where
 
 import Prelude
 
-import CSS (CSS, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, margin, marginLeft, marginRight, maxWidth, minWidth, noRepeat, opacity, paddingTop, pct, placed, px, sideCenter, star, transitionDuration, width, wrap, (&), (?))
+import CSS (CSS, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, margin, marginLeft, marginRight, maxWidth, minWidth, noRepeat, opacity, paddingTop, pct, placed, position, px, relative, sideCenter, star, transitionDuration, width, wrap, (&), (?))
 import CSS.Common (auto, center)
 import CSS.Cursor as Cursor
 import CSS.TextAlign as TextAlign
@@ -38,7 +38,7 @@ style = do
       img & byClass "loaded" ? do
         opacity 1.0
 
-    fadeIn "pictures"
+    fadeIn "pictures" $ px $ - 6.0
     maxWidth $ px 1000.0
     minWidth $ px 250.0
     marginLeft auto
@@ -47,3 +47,4 @@ style = do
     display flex
     flexWrap wrap
     justifyContent center
+    position relative
