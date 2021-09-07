@@ -2,7 +2,7 @@ module YukiPortfolio.Components.Pages.Pictures where
 
 import Prelude
 
-import Data.Array (mapWithIndex, replicate)
+import Data.Array (mapWithIndex)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
 import Halogen (lift)

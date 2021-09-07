@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.MusicPlayer where
 
 import Prelude hiding (top, bottom)
 
-import CSS (CSS, border, bottom, byClass, fixed, height, left, pct, position, px, solid, star, width, zIndex, (&), (?))
+import CSS (CSS, border, byClass, height, pct, px, solid, star, width, zIndex, (&), (?))
 import YukiPortfolio.Styles.Common (yukiColors)
 
 style :: CSS

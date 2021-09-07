@@ -2,7 +2,7 @@ module YukiPortfolio.Styles.PictureViewer where
 
 import Prelude
 
-import CSS (CSS, absolute, backgroundColor, block, borderBox, boxSizing, byClass, color, display, flexGrow, fromString, height, img, marginLeft, marginRight, marginTop, maxHeight, maxWidth, paddingBottom, paddingTop, pct, position, prefixed, px, relative, rgb, rgba, star, white, width, (&), (?))
+import CSS (CSS, absolute, backgroundColor, block, borderBox, boxSizing, byClass, display, flexGrow, fromString, height, img, marginLeft, marginRight, maxHeight, maxWidth, paddingBottom, paddingTop, pct, position, prefixed, px, relative, rgba, star, width, (&), (?))
 import CSS.Common (auto)
 
 style :: CSS

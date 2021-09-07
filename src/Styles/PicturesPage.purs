@@ -2,13 +2,11 @@ module YukiPortfolio.Styles.PicturesPage where
 
 import Prelude
 
-import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, margin, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
+import CSS (CSS, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, margin, marginLeft, marginRight, maxWidth, minWidth, noRepeat, opacity, paddingTop, pct, placed, px, sideCenter, star, transitionDuration, width, wrap, (&), (?))
 import CSS.Common (auto, center)
 import CSS.Cursor as Cursor
-import CSS.Media as Media
 import CSS.TextAlign as TextAlign
 import CSS.VerticalAlign as VerticalAlign
-import Data.NonEmpty (singleton)
 import YukiPortfolio.Styles.Common (fadeIn, yukiColors)
 
 style :: CSS

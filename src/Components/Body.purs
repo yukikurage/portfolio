@@ -3,8 +3,7 @@ module YukiPortfolio.Components.Body where
 import Prelude
 
 import Data.Tuple.Nested ((/\))
-import Effect.Class (class MonadEffect, liftEffect)
-import Effect.Class.Console (log)
+import Effect.Class (class MonadEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.Hooks as Hooks
@@ -19,12 +18,10 @@ import YukiPortfolio.Components.HTML.TitleBar (titleBar)
 import YukiPortfolio.Components.Pages.About as About
 import YukiPortfolio.Components.Pages.Musics as Musics
 import YukiPortfolio.Components.Pages.NotFound as NotFound
-import YukiPortfolio.Components.Pages.Pictures (Output(..))
 import YukiPortfolio.Components.Pages.Pictures as Pictures
 import YukiPortfolio.Components.PictureViewer as PictureViewer
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 import YukiPortfolio.Data.Pages (Pages(..))
-import YukiPortfolio.Data.PictureViewerState (PictureViewerState(..))
 import YukiPortfolio.Hooks.UseHash (useHash)
 
 _musics = Proxy :: Proxy "Musics"
