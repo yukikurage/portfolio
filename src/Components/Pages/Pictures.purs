@@ -17,7 +17,7 @@ import YukiPortfolio.Data.Picture (Picture)
 
 _picturePanel = Proxy :: Proxy "picturePanel"
 
-data Output = ClickPic Picture
+data Output = View Picture
 
 component :: forall q i m.
   Monad m =>
@@ -32,5 +32,5 @@ component = Hooks.component \tokens _ -> Hooks.do
 
   Hooks.pure $ HH.div [ css "pictures"] $ mapWithIndex
     (\i picture -> HH.slot _picturePanel i PicturePanel.component {picture: picture} $ case _ of
-      PicturePanel.ClickPic -> Hooks.raise tokens.outputToken $ ClickPic picture
+      PicturePanel.View -> Hooks.raise tokens.outputToken $ View picture
     ) pictures

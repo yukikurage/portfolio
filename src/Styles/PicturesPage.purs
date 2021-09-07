@@ -2,8 +2,8 @@ module YukiPortfolio.Styles.PicturesPage where
 
 import Prelude
 
-import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, marginLeft, marginRight, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
-import CSS.Common (auto)
+import CSS (CSS, background, backgroundColor, backgroundPosition, backgroundRepeat, byClass, cursor, display, flex, flexWrap, height, img, justifyContent, margin, marginBottom, marginLeft, marginRight, marginTop, maxHeight, maxWidth, minWidth, noRepeat, opacity, paddingLeft, paddingRight, paddingTop, pct, placed, px, query, sideCenter, spaceBetween, star, transitionDuration, url, width, wrap, (&), (?))
+import CSS.Common (auto, center)
 import CSS.Cursor as Cursor
 import CSS.Media as Media
 import CSS.TextAlign as TextAlign
@@ -14,15 +14,14 @@ import YukiPortfolio.Styles.Common (fadeIn, yukiColors)
 style :: CSS
 style = do
   star & byClass "pictures" ? do
-    star & byClass "picturePanelInner" ? do
-      paddingLeft $ px 6.0
-      paddingRight $ px 6.0
 
     star & byClass "picturePanel" ? do
-      width $ pct $ 100.0 / 4.0
+      margin (px 10.0) (px 10.0) (px 10.0) (px 10.0)
+      height $ px $ 240.0
       TextAlign.textAlign TextAlign.center
       star & byClass "imgWrapper" ? do
-        height auto
+        cursor Cursor.pointer
+        height $ pct 100.0
         width auto
         -- background $ url "./public/images/loading_black.gif"
         backgroundRepeat $ noRepeat
@@ -32,25 +31,14 @@ style = do
       star & byClass "imgWrapper:hover" ? do
         opacity 0.7
       img ? do
-        height auto
-        width $ pct 100.0
-        maxHeight $ pct 100.0
-        cursor Cursor.pointer
+        height $ pct 100.0
+        width auto
         transitionDuration "0.3s"
         VerticalAlign.verticalAlign VerticalAlign.Top
       img & byClass "loading" ? do
         opacity 0.0
       img & byClass "loaded" ? do
         opacity 1.0
-    query Media.screen (singleton $ Media.maxWidth $ px 1000.0) do
-      star & byClass "picturePanel" ? do
-        width $ pct $ 100.0 / 3.0
-    query Media.screen (singleton $ Media.maxWidth $ px 750.0) do
-      star & byClass "picturePanel" ? do
-        width $ pct $ 100.0 / 2.0
-    query Media.screen (singleton $ Media.maxWidth $ px 500.0) do
-      star & byClass "picturePanel" ? do
-        width $ pct $ 100.0
 
     fadeIn "pictures"
     maxWidth $ px 1000.0
@@ -60,4 +48,4 @@ style = do
     paddingTop $ px 20.0
     display flex
     flexWrap wrap
-    justifyContent spaceBetween
+    justifyContent center

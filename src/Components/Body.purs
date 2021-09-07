@@ -3,7 +3,8 @@ module YukiPortfolio.Components.Body where
 import Prelude
 
 import Data.Tuple.Nested ((/\))
-import Effect.Class (class MonadEffect)
+import Effect.Class (class MonadEffect, liftEffect)
+import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.Hooks as Hooks
@@ -18,23 +19,28 @@ import YukiPortfolio.Components.HTML.TitleBar (titleBar)
 import YukiPortfolio.Components.Pages.About as About
 import YukiPortfolio.Components.Pages.Musics as Musics
 import YukiPortfolio.Components.Pages.NotFound as NotFound
+import YukiPortfolio.Components.Pages.Pictures (Output(..))
 import YukiPortfolio.Components.Pages.Pictures as Pictures
+import YukiPortfolio.Components.PictureViewer as PictureViewer
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 import YukiPortfolio.Data.Pages (Pages(..))
+import YukiPortfolio.Data.PictureViewerState (PictureViewerState(..))
 import YukiPortfolio.Hooks.UseHash (useHash)
 
 _musics = Proxy :: Proxy "Musics"
 _about = Proxy :: Proxy "About"
 _pictures = Proxy :: Proxy "Pictures"
 _notFound = Proxy :: Proxy "NotFound"
+_pictureViewer = Proxy :: Proxy "PictureViewer"
 
-component :: forall query input output m. 
+component :: forall query input output m.
   MusicHandler m
   => PicturesHandler m
   => MonadEffect m
   => H.Component query input output m
-component = Hooks.component \_ _ -> Hooks.do
+component = Hooks.component \tokens _ -> Hooks.do
   nowPlaying /\ nowPlayingId <- Hooks.useState NotPlaying
+
   nowPage <- useHash
 
   Hooks.pure $ HH.div [css "bodyRoot"]
@@ -43,6 +49,7 @@ component = Hooks.component \_ _ -> Hooks.do
         [ titleBar
         , navigationBar [About, Musics, Pictures, WebApps] nowPage
         ]
+      , HH.slot_ _pictureViewer unit PictureViewer.component unit
       , musicPlayer nowPlaying
       ]
     , HH.div [css "dynamic"]
@@ -52,7 +59,8 @@ component = Hooks.component \_ _ -> Hooks.do
               Musics.Play music -> Hooks.put nowPlayingId $ Playing music
             About -> HH.slot_ _about unit About.component unit
             Pictures -> HH.slot _pictures "Pictures" Pictures.component unit $ case _ of
-              Pictures.ClickPic pic -> pure unit
+              Pictures.View pic -> do
+                Hooks.tell tokens.slotToken _pictureViewer unit $ PictureViewer.View pic
             WebApps -> HH.div_ []
             NotFound -> HH.slot_ _notFound "NotFound" NotFound.component unit
         ]

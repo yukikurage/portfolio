@@ -18,20 +18,16 @@ type Input =
   { picture :: Picture
   }
 
-data Output = ClickPic
+data Output = View
 
 component :: forall q m. H.Component q Input Output m
 component = Hooks.component \tokens input -> Hooks.do
   let Picture pictureRecord = input.picture
 
   Hooks.pure $ HH.div [css "picturePanel"]
-    [ HH.div
-      [ css "picturePanelInner"
-      , HE.onClick (\_ -> Hooks.raise tokens.outputToken $ ClickPic)]
-      [ HH.div [HP.class_ $ H.ClassName "imgWrapper"]
-        [ HH.slot_ image_ unit ImageLoader.component
-          { width: pictureRecord.width
-          , height: pictureRecord.height
-          , src: pictureRecord.src} ]
-      ]
+    [ HH.div [HP.class_ $ H.ClassName "imgWrapper", HE.onClick (\_ -> Hooks.raise tokens.outputToken $ View)]
+      [ HH.slot_ image_ unit ImageLoader.component
+        { width: pictureRecord.width
+        , height: pictureRecord.height
+        , src: pictureRecord.src} ]
     ]

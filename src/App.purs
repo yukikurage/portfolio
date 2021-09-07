@@ -10,6 +10,7 @@ import Routing.Hash (setHash)
 import Safe.Coerce (coerce)
 import YukiPortfolio.Classes.MusicHandler (class MusicHandler)
 import YukiPortfolio.Classes.NavigationHandler (class NavigationHandler)
+import YukiPortfolio.Classes.PicturesHandler (class PicturesHandler)
 import YukiPortfolio.Contents.Musics as Musics
 import YukiPortfolio.Contents.Pictures as Pictures
 import YukiPortfolio.Data.Pages (pageToHash)
