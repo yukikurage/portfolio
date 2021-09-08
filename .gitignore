@@ -11,4 +11,4 @@
 
 /.vscode
 /purescript-dependency-graph
-/index.js
+/public/index.js
