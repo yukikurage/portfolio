@@ -9,7 +9,7 @@ import YukiPortfolio.Components.Common (css)
 
 component :: forall q i o m. H.Component q i o m
 component = Hooks.component \_ _ -> Hooks.pure $ HH.div [css "about"]
-  [ HH.img [css "yukiIcon", HP.src "./public/images/yuki_icon1.png", HP.width 80, HP.height 80]
+  [ HH.img [css "yukiIcon", HP.src "./images/yuki_icon1.png", HP.width 80, HP.height 80]
   , HH.h2_ [HH.text "ゆきくらげ / Yukikurage"]
   , HH.div [css "mainContents"]
     [ mkAbout "音楽" "生音と電子音を組み合わせた曲をよく作っています．主な活動場所はSoundCloudですが，Youtube, ニコニコ動画にも上げています．"

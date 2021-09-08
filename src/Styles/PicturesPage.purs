@@ -21,7 +21,7 @@ style = do
         cursor Cursor.pointer
         height $ pct 100.0
         width auto
-        -- background $ url "./public/images/loading_black.gif"
+        -- background $ url "./images/loading_black.gif"
         backgroundRepeat $ noRepeat
         backgroundColor $ yukiColors.greyYellow
         backgroundPosition $ placed sideCenter sideCenter

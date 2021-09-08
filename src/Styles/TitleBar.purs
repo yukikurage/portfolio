@@ -17,7 +17,7 @@ style = do
     paddingLeft $ px 20.0
     paddingRight $ px 20.0
     backgroundPosition $ placed sideCenter sideCenter
-    backgroundImage $ url "./public/images/nou2_nologo.png"
+    backgroundImage $ url "./images/nou2_nologo.png"
     prefixed (fromString "background-size") "calc(max(100%, 1000px))"
     position relative
     boxSizing borderBox
