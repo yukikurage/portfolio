@@ -12,9 +12,9 @@ import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 musicPlayer :: forall w i. MusicPlayerState -> HH.HTML w i
 musicPlayer musicPlayerState = case musicPlayerState of
   Playing (Music music) -> case music.soundTrackId of
-    Just id -> HH.div [css "musicPlayer"]
+    Just id -> HH.div_
       [ HH.iframe
-        [ css "musicPlayer", HH.prop (HH.PropName "allow") "autoplay", HP.src $ mkSrc id]
+        [ css "w-full h-28 border-0", HH.prop (HH.PropName "allow") "autoplay", HP.src $ mkSrc id]
       ]
     Nothing -> HH.div_ []
   NotPlaying -> HH.div_ []
