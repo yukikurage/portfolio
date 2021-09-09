@@ -10,7 +10,7 @@
     "clean": "rm -r output .lock .cache",
     "test": "npx spago test",
     "build": "npx spago build",
-    "watch:tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css -w --jit",
+    "watch:tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css -w",
     "watch:spago": "npx spago bundle-app --main Main --to './public/index.js' --watch",
     "watch": "npx concurrently \"npm run watch:tailwind\" \"npm run watch:spago\"",
     "bundle": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css && npx spago bundle-app --main Main --to './public/index.js'"
@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/yukikurage/portfolio#readme",
   "devDependencies": {
+    "@tailwindcss/jit": "^0.1.18",
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
     "purescript": "^0.14.4",
     "spago": "^0.20.3",
     "tailwindcss": "^2.2.14"

@@ -1,8 +1,16 @@
 module.exports = {
-  purge: [],
+  mode: 'jit',
+  // These paths are just examples, customize them to match your project structure
+  purge: [
+    './public/index.html',
+    './src/**/*.purs',
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        'montserrat': ['Montserrat', 'sans-serif']
+      },
       animation: {
         'fade-in-quick': 'fade-in-keyframes 0.08s linear 1',
       },
