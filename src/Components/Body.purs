@@ -40,17 +40,15 @@ component = Hooks.component \tokens _ -> Hooks.do
 
   nowPage <- useHash
 
-  Hooks.pure $ HH.div [css "bodyRoot"]
-    [ HH.div [css "static"]
-      [ HH.div [css "header"]
-        [ titleBar
-        , navigationBar [About, Musics, Pictures, WebApps] nowPage
-        ]
+  Hooks.pure $ HH.div [css "font-meiryo text-yukiBlack"]
+    [ HH.div [css "inset-0 z-50 flex flex-col nowrap justify-start fixed pointer-events-none"]
+      [ titleBar
+      , navigationBar [About, Musics, Pictures, WebApps] nowPage
       , HH.slot_ _pictureViewer unit PictureViewer.component unit
-      , musicPlayer nowPlaying
       ]
-    , HH.div [css "dynamic"]
-      [ HH.div [css "main"]
+    , musicPlayer nowPlaying
+    , HH.div [css "z-40 absolute inset-0 flex flex-col flex-nowrap min-h-screen"]
+      [ HH.div [css "flex-grow px-4 py-36"]
         [ case nowPage of
             Musics -> HH.slot _musics unit Musics.component unit $ case _ of
               Musics.Play music -> Hooks.put nowPlayingId $ Playing music
@@ -61,6 +59,6 @@ component = Hooks.component \tokens _ -> Hooks.do
             WebApps -> HH.div_ []
             NotFound -> HH.slot_ _notFound "NotFound" NotFound.component unit
         ]
-      , HH.div [css "footer"] [copyright]
+      , HH.div [css "bg-yukiYellow px-5 pb-32"] [copyright]
       ]
     ]

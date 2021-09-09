@@ -14,7 +14,7 @@ musicPlayer musicPlayerState = case musicPlayerState of
   Playing (Music music) -> case music.soundTrackId of
     Just id -> HH.div_
       [ HH.iframe
-        [ css "w-full h-28 border-0", HH.prop (HH.PropName "allow") "autoplay", HP.src $ mkSrc id]
+        [ css "fixed left-0 bottom-0 right-0 w-full h-28 border-0 z-[45]", HH.prop (HH.PropName "allow") "autoplay", HP.src $ mkSrc id]
       ]
     Nothing -> HH.div_ []
   NotPlaying -> HH.div_ []

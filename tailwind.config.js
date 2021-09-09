@@ -9,7 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'montserrat': ['Montserrat', 'sans-serif']
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'meiryo': ['Meiryo','メイリオ', 'sans-serif'],
+        'title': ['"Big Shoulders Display"', 'sans-serif']
       },
       animation: {
         'fade-in-quick': 'fade-in-keyframes 0.08s linear 1',
@@ -20,6 +22,9 @@ module.exports = {
           '100%': {opacity: '1'},
         },
       },
+      backgroundImage: theme => ({
+        'title-bg': "url(./images/nou2_nologo.png)",
+      })
     },
     colors: {
       transparent: 'transparent',
