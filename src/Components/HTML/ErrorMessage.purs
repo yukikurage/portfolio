@@ -7,7 +7,7 @@ import YukiPortfolio.Components.Common (css)
 errorMessage :: forall w i. String -> String -> HH.HTML w i
 errorMessage title description =
   HH.div
-    [ css "errorMessage"
+    [ css "text-center"
     ]
     [ h1_ [text title]
     , text description
