@@ -30,7 +30,7 @@ component = Hooks.component \tokens _ -> Hooks.do
     Hooks.put picturesId =<< lift getPictures
     pure Nothing
 
-  Hooks.pure $ HH.div [ css "pictures"] $ mapWithIndex
+  Hooks.pure $ HH.div [css "animate-fade-in-quick max-w-6xl min-w-min mx-auto flex flex-wrap justify-center relative"] $ mapWithIndex
     (\i picture -> HH.slot _picturePanel i PicturePanel.component {picture: picture} $ case _ of
       PicturePanel.View -> Hooks.raise tokens.outputToken $ View picture
     ) pictures
