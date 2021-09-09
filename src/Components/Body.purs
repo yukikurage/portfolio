@@ -23,12 +23,14 @@ import YukiPortfolio.Components.PictureViewer as PictureViewer
 import YukiPortfolio.Data.MusicPlayerState (MusicPlayerState(..))
 import YukiPortfolio.Data.Pages (Pages(..))
 import YukiPortfolio.Hooks.UseHash (useHash)
+import YukiPortfolio.Components.Pages.Links as Links
 
 _musics = Proxy :: Proxy "Musics"
 _about = Proxy :: Proxy "About"
 _pictures = Proxy :: Proxy "Pictures"
 _notFound = Proxy :: Proxy "NotFound"
 _pictureViewer = Proxy :: Proxy "PictureViewer"
+_links = Proxy :: Proxy "links"
 
 component :: forall query input output m.
   MusicHandler m
@@ -43,7 +45,7 @@ component = Hooks.component \tokens _ -> Hooks.do
   Hooks.pure $ HH.div [css "font-meiryo text-yukiBlack"]
     [ HH.div [css "inset-0 z-50 flex flex-col nowrap justify-start fixed pointer-events-none"]
       [ titleBar
-      , navigationBar [About, Musics, Pictures, WebApps] nowPage
+      , navigationBar [About, Musics, Pictures,{- WebApps -} Links] nowPage
       , HH.slot_ _pictureViewer unit PictureViewer.component unit
       ]
     , musicPlayer nowPlaying
@@ -57,6 +59,7 @@ component = Hooks.component \tokens _ -> Hooks.do
               Pictures.View pic -> do
                 Hooks.tell tokens.slotToken _pictureViewer unit $ PictureViewer.View pic
             WebApps -> HH.div_ []
+            Links -> HH.slot_ _links "Links" Links.component unit
             NotFound -> HH.slot_ _notFound "NotFound" NotFound.component unit
         ]
       , HH.div [css "bg-yukiYellow px-5 pb-32"] [p [css "copyright"] [text "©︎ 2021-2021 ゆきくらげ"]]

@@ -7,6 +7,7 @@ data Pages =
   Musics |
   Pictures |
   WebApps |
+  Links |
   NotFound
 
 derive instance Eq Pages
@@ -18,6 +19,7 @@ showPage = case _ of
   Pictures -> "Illustrations"
   WebApps -> "WebApps"
   NotFound -> "NotFound"
+  Links -> "Links"
 
 pageToHash :: Pages -> String
 pageToHash = case _ of
@@ -26,6 +28,7 @@ pageToHash = case _ of
   Pictures -> "pictures"
   WebApps -> "webapps"
   NotFound -> "notFound"
+  Links -> "links"
 
 hashToPage :: String -> Pages
 hashToPage = case _ of
@@ -33,5 +36,6 @@ hashToPage = case _ of
   "musics" -> Musics
   "pictures" -> Pictures
   "webapps" -> WebApps
+  "links" -> Links
   "" -> About
   _ -> NotFound
