@@ -6,13 +6,10 @@ import Data.Tuple.Nested ((/\))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events (onClick, onLoad)
-import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties (height, src, width)
-import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Type.Proxy (Proxy(..))
 import YukiPortfolio.Components.Common (css)
-import YukiPortfolio.Components.ImageLoader as ImageLoader
 import YukiPortfolio.Data.Music (Music(..))
 
 image_ = Proxy :: Proxy "image"

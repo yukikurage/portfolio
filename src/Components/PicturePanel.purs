@@ -12,7 +12,6 @@ import Halogen.HTML.Properties as HP
 import Halogen.Hooks as Hooks
 import Type.Proxy (Proxy(..))
 import YukiPortfolio.Components.Common (css)
-import YukiPortfolio.Components.ImageLoader as ImageLoader
 import YukiPortfolio.Data.Picture (Picture(..))
 
 image_ = Proxy :: Proxy "image"

@@ -37,10 +37,8 @@ component = Hooks.component \tokens _ -> Hooks.do
     when (nowPage /= Pictures) $ Hooks.put nowViewingId NotViewing
     pure Nothing
 
-  Hooks.pure $ div [css "relative"]
-    [ case nowViewing of
-        Viewing (Picture pic) -> div [css "viewing", onClick \_ -> Hooks.put nowViewingId NotViewing]
-          [ img [src pic.src]
-          ]
-        _ -> div [css "notViewing"] []
-    ]
+  Hooks.pure $ case nowViewing of
+      Viewing (Picture pic) -> div [css "relative flex-grow animate-fade-in-quick w-full bg-yukiBlack bg-opacity-70 py-1 min-h-0", onClick \_ -> Hooks.put nowViewingId NotViewing]
+        [ img [css "max-h-full max-w-full mx-auto h-auto w-auto block", src pic.src]
+        ]
+      _ -> div [css "notViewing"] []
