@@ -11,8 +11,9 @@
     "test": "npx spago test",
     "build": "npx spago build",
     "watch:tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css -w",
-    "watch:spago": "npx spago bundle-app --main Main --to './public/index.js' --watch",
-    "watch": "npx concurrently \"npm run watch:tailwind\" \"npm run watch:spago\"",
+    "watch:spago": "npx spago build --watch",
+    "watch:webpack-server": "npx webpack-dev-server",
+    "watch": "npx concurrently \"npm run watch:tailwind\" \"npm run watch:spago\" \"npm run watch:webpack-server\"",
     "bundle": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css && npx spago bundle-app --main Main --to './public/index.js'"
   },
   "repository": {
@@ -31,6 +32,14 @@
     "postcss": "^8.3.6",
     "purescript": "^0.14.4",
     "spago": "^0.20.3",
-    "tailwindcss": "^2.2.14"
+    "tailwindcss": "^2.2.14",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.1"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^7.22.0",
+    "purs-loader": "^3.7.2"
   }
 }
