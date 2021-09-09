@@ -10,7 +10,7 @@
     "clean": "rm -r output .lock .cache",
     "test": "npx spago test",
     "build": "npx spago build",
-    "watch:tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css -w",
+    "watch:tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css -w --jit",
     "watch:spago": "npx spago bundle-app --main Main --to './public/index.js' --watch",
     "watch": "npx concurrently \"npm run watch:tailwind\" \"npm run watch:spago\"",
     "bundle": "npx tailwindcss -i ./src/tailwind.css -o ./public/style.css && npx spago bundle-app --main Main --to './public/index.js'"
