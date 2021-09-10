@@ -8,6 +8,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'link': '100px 250px',
+      },
       fontFamily: {
         'montserrat': ['Montserrat', 'sans-serif'],
         'meiryo': ['Meiryo','メイリオ', 'sans-serif'],
@@ -29,6 +32,24 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+      'youtube': {
+        DEFAULT: '#FF0000',
+      },
+      'twitter': {
+        DEFAULT: '#1DA1F2'
+      },
+      'github': {
+        DEFAULT: '#333'
+      },
+      'soundcloud': {
+        DEFAULT: '#ff8800'
+      },
+      'hatena': {
+        DEFAULT: '#242527'
+      },
+      'pixiv': {
+        DEFAULT: '#0097FA'
+      },
       yukiRed: {
         DEFAULT: '#A8233E',
       },

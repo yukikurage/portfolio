@@ -2,7 +2,6 @@ module YukiPortfolio.Components.Pages.Musics where
 
 import Prelude
 
-import CSS (relative)
 import Data.Array (mapWithIndex, replicate)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))

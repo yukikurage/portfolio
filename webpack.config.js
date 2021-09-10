@@ -8,11 +8,12 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
   },
   watchOptions: {
-    ignored: ['./src/*']
+    aggregateTimeout: 200,
+    poll: 1000,
   },
   devServer: {
-    watchFiles: ['output/**/*'],
     static: './public',
-    open:true,
+    open: true,
+    compress: false,
   }
 };
