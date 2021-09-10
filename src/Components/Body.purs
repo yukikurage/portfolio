@@ -50,7 +50,7 @@ component = Hooks.component \tokens _ -> Hooks.do
       ]
     , musicPlayer nowPlaying
     , HH.div [css "z-40 absolute inset-0 flex flex-col flex-nowrap min-h-screen"]
-      [ HH.div [css "flex-grow px-4 py-36"]
+      [ HH.div [css "flex-grow px-10 py-36"]
         [ case nowPage of
             Musics -> HH.slot _musics unit Musics.component unit $ case _ of
               Musics.Play music -> Hooks.put nowPlayingId $ Playing music

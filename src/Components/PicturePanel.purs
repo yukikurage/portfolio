@@ -28,7 +28,7 @@ component = Hooks.component \tokens input -> Hooks.do
 
   let Picture pictureRecord = input.picture
 
-  Hooks.pure $ HH.div [HP.class_ $ H.ClassName "hover:opacity-70 bg-yukiYellow duration-100 h-56 w-auto", HE.onClick (\_ -> Hooks.raise tokens.outputToken $ View)]
+  Hooks.pure $ HH.div [HP.class_ $ H.ClassName "hover:opacity-70 bg-yukiYellow duration-100 h-36 sm:h-56 w-auto", HE.onClick (\_ -> Hooks.raise tokens.outputToken $ View)]
     [ HH.img
       [ onLoad \_ -> Hooks.put isLoadId true
       , onClick (\_ -> Hooks.raise tokens.outputToken $ View)

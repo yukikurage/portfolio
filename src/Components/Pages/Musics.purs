@@ -30,7 +30,7 @@ component = Hooks.component \tokens _ -> Hooks.do
     Hooks.put musicsId =<< lift getMusics
     pure Nothing
 
-  Hooks.pure $ HH.div [css "relative animate-fade-in-quick max-w-5xl min-w-min mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"] $ mapWithIndex
+  Hooks.pure $ HH.div [css "relative animate-fade-in-quick max-w-5xl min-w-min mx-auto grid grid-cols-2 sm:grid-cols-3 md:sm:grid-cols-3 lg:grid-cols-4 gap-3"] $ mapWithIndex
     (\i music -> HH.slot _musicPanel i MusicPanel.component {music: music} $ case _ of
       MusicPanel.Play -> Hooks.raise tokens.outputToken $ Play music
     ) musics

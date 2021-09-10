@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'link': '100px 250px',
+        'link': '6.25rem 1fr',
       },
       fontFamily: {
         'montserrat': ['Montserrat', 'sans-serif'],
@@ -17,7 +17,7 @@ module.exports = {
         'title': ['"Big Shoulders Display"', 'sans-serif']
       },
       animation: {
-        'fade-in-quick': 'fade-in-keyframes 0.08s linear 1',
+        'fade-in-quick': 'fade-in-keyframes 50ms linear 1',
       },
       keyframes: {
         'fade-in-keyframes': {
@@ -26,7 +26,7 @@ module.exports = {
         },
       },
       backgroundImage: theme => ({
-        'title-bg': "url(./images/nou2_nologo.png)",
+        'title-bg': "url(./images/bg-title-bar.png)",
       })
     },
     colors: {
