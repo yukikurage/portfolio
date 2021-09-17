@@ -15,7 +15,7 @@ titleBar =
     , div [css "w-full sm:w-auto sm:flex-grow"] []--Fill
     , socialIcon "bg-twitter" "fab fa-twitter" "https://twitter.com/yukikurage_2019"
     , socialIcon "bg-soundcloud" "fab fa-soundcloud" "https://soundcloud.com/yukikurage"
-    , socialIcon "bg-youtube" "" {-"fab fa-youtube"-} "https://www.youtube.com/channel/UCTGwIwjCRMpe7cmpP2EaH3w"
+    , socialIcon "bg-youtube" "fab fa-youtube" "https://www.youtube.com/channel/UCTGwIwjCRMpe7cmpP2EaH3w"
     , socialIcon "bg-github" "fab fa-github" "https://github.com/yukikurage"
     ]
   ]

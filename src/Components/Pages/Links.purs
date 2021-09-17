@@ -14,7 +14,7 @@ component = Hooks.component \_ _ -> Hooks.do
   Hooks.pure $ div [css "grid grid-cols-1 sm:grid-cols-2 mx-auto gap-5 max-w-3xl animate-fade-in-quick"]
     [ linkBox "fab fa-twitter" "bg-twitter" "https://twitter.com/yukikurage_2019" "Twitter" "駄文"
     , linkBox "fab fa-soundcloud" "bg-soundcloud" "https://soundcloud.com/yukikurage" "SoundCloud" "曲をあげてます"
-    , linkBox {-"fab fa-youtube"-} "" "bg-youtube" "https://www.youtube.com/channel/UCTGwIwjCRMpe7cmpP2EaH3w" "Youtube" "曲を動画化して上げてます．曲以外もなにかしたい"
+    , linkBox "fab fa-youtube" "bg-youtube" "https://www.youtube.com/channel/UCTGwIwjCRMpe7cmpP2EaH3w" "Youtube" "曲を動画化して上げてます．曲以外もなにかしたい"
     , linkBox "fab fa-github" "bg-github" "https://github.com/yukikurage" "GitHub" "色々してます"
     , linkBox "" "bg-hatena" "https://yukikurage.hatenablog.com/" "はてなブログ" "駄文2"
     , linkBox "" "bg-yukiBlack" "https://www.nicovideo.jp/user/91678779" "ニコニコ動画" "一応使ってます"
