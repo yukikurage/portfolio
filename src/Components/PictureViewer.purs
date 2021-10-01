@@ -7,6 +7,7 @@ import Data.Tuple.Nested ((/\))
 import Effect.Class (class MonadEffect)
 import Halogen (Component)
 import Halogen.HTML (div, img)
+import Halogen.HTML.Elements.Keyed (div_)
 import Halogen.HTML.Events (onClick)
 import Halogen.HTML.Properties (src)
 import Halogen.Hooks as Hooks
@@ -42,4 +43,4 @@ component = Hooks.component \tokens _ -> Hooks.do
         , onClick \_ -> Hooks.put nowViewingId NotViewing]
         [ img [css "max-h-full max-w-full mx-auto h-auto w-auto block", src pic.src]
         ]
-      _ -> div [css "notViewing"] []
+      _ -> div_ []
