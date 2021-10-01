@@ -9294,6 +9294,11 @@ var PS = {};
   var Data_Functor = $PS["Data.Functor"];
   var YukiPortfolio_Data_Picture = $PS["YukiPortfolio.Data.Picture"];                
   var pictures = Data_Functor.map(Data_Functor.functorArray)(YukiPortfolio_Data_Picture.Picture.create)([ {
+      title: "\u30e9\u30b0\u30e9\u30f3\u30b8\u30e5",
+      height: 1520,
+      width: 1150,
+      src: "./images/pictures/raguranzyu.png"
+  }, {
       title: "\u5f69\u5922",
       height: 1117,
       width: 1000,
@@ -9308,6 +9313,51 @@ var PS = {};
       height: 540,
       width: 540,
       src: "./images/pictures/candy_no_logo.png"
+  }, {
+      title: "FSL \u30dc\u30c4",
+      height: 540,
+      width: 540,
+      src: "./images/pictures/FSL.png"
+  }, {
+      title: "2021-424",
+      height: 1000,
+      width: 1000,
+      src: "./images/pictures/2021-424.png"
+  }, {
+      title: "\u3044\u3064\u304b\u306e\u30a2\u30a4\u30b3\u30f3",
+      height: 1000,
+      width: 1000,
+      src: "./images/pictures/ICON6.png"
+  }, {
+      title: "\u5b8c\u6210\u3055\u305b\u305f\u3044",
+      height: 1530,
+      width: 1226,
+      src: "./images/pictures/IMG_20210204_191350 (2).jpg"
+  }, {
+      title: "\u4e0b\u66f8\u304d",
+      height: 4046,
+      width: 2000,
+      src: "./images/pictures/Draft.png"
+  }, {
+      title: "AUTOMATIX",
+      height: 4092,
+      width: 2893,
+      src: "./images/pictures/AUTOMATIX.png"
+  }, {
+      title: "\u8151\u306b\u843d\u3061\u306a\u3044\u9854",
+      height: 1000,
+      width: 1000,
+      src: "./images/pictures/KAKIDASI.png"
+  }, {
+      title: "TrueEnding",
+      height: 1000,
+      width: 1000,
+      src: "./images/pictures/TrueEnding.png"
+  }, {
+      title: "Elements",
+      height: 1000,
+      width: 1000,
+      src: "./images/pictures/Elements_Notitle.png"
   } ]);
   exports["pictures"] = pictures;
 })(PS);
