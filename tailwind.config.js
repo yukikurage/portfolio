@@ -50,6 +50,9 @@ module.exports = {
       'pixiv': {
         DEFAULT: '#0097FA'
       },
+      'zenn': {
+        DEFAULT: '#3EA8FF'
+      },
       yukiRed: {
         DEFAULT: '#A8233E',
       },
