@@ -9294,6 +9294,16 @@ var PS = {};
   var Data_Functor = $PS["Data.Functor"];
   var YukiPortfolio_Data_Picture = $PS["YukiPortfolio.Data.Picture"];                
   var pictures = Data_Functor.map(Data_Functor.functorArray)(YukiPortfolio_Data_Picture.Picture.create)([ {
+      title: "comi",
+      height: 3541,
+      width: 2508,
+      src: "./images/pictures/comi.png"
+  }, {
+      title: "hina",
+      height: 2487,
+      width: 2487,
+      src: "./images/pictures/hina.png"
+  }, {
       title: "\u30e9\u30b0\u30e9\u30f3\u30b8\u30e5",
       height: 1520,
       width: 1150,
