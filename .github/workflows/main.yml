@@ -20,6 +20,9 @@ jobs:
     - name: delete index.js from git .ignore
       run: sed -i '/index.js/d' .gitignore
     - name: Push to GitHub
-      run: |
-        git checkout -b clf-pages
-        git push origin clf-pages
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: self
+        BRANCH: clf-pages
+        FOLDER: public
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
