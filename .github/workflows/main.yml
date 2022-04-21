@@ -19,8 +19,7 @@ jobs:
       run: npm run deploy
     - name: delete index.js from git .ignore
       run: sed -i '/index.js/d' .gitignore
-    - name: Deploy website
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: public
+    - name: Push to GitHub
+      run: |
+        git checkout -b clf-pages
+        git push origin clf-pages
