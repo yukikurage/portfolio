@@ -19,10 +19,8 @@ jobs:
       run: npm run deploy
     - name: delete index.js from git .ignore
       run: sed -i '/index.js/d' .gitignore
-    - name: Push to GitHub
-      uses: s0/git-publish-subdir-action@master
-      env:
-        REPO: self
-        BRANCH: clf-pages
-        FOLDER: public
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy website
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: public
