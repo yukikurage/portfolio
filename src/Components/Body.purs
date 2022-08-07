@@ -62,6 +62,6 @@ component = Hooks.component \tokens _ -> Hooks.do
             Links -> HH.slot_ _links "Links" Links.component unit
             NotFound -> HH.slot_ _notFound "NotFound" NotFound.component unit
         ]
-      , HH.div [css "bg-yukiYellow px-5 pb-32"] [p [css "copyright"] [text "©︎ 2021-2021 ゆきくらげ"]]
+      , HH.div [css "bg-yukiYellow px-5 pb-32"] [p [css "copyright"] [text "©︎ 2021-2022 YUKIWORKS"]]
       ]
     ]
