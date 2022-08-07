@@ -10253,7 +10253,7 @@ var PS = {};
                                       })(Data_Ord.ordString)(_notFound)("NotFound")(YukiPortfolio_Components_Pages_NotFound.component)(Data_Unit.unit);
                                   };
                                   throw new Error("Failed pattern match at YukiPortfolio.Components.Body (line 54, column 11 - line 63, column 78): " + [ nowPage.constructor.name ]);
-                              })() ]), Halogen_HTML_Elements.div([ YukiPortfolio_Components_Common.css("bg-yukiYellow px-5 pb-32") ])([ Halogen_HTML_Elements.p([ YukiPortfolio_Components_Common.css("copyright") ])([ Halogen_HTML_Core.text("\xa9\ufe0e 2021-2021 \u3086\u304d\u304f\u3089\u3052") ]) ]) ]) ]));
+                              })() ]), Halogen_HTML_Elements.div([ YukiPortfolio_Components_Common.css("bg-yukiYellow px-5 pb-32") ])([ Halogen_HTML_Elements.p([ YukiPortfolio_Components_Common.css("copyright") ])([ Halogen_HTML_Core.text("\xa9\ufe0e 2021-2022 YUKIWORKS") ]) ]) ]) ]));
                           });
                       });
                   };
